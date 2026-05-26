@@ -1,0 +1,63 @@
+---
+/**
+ * MASTERCLASS: Componentes de UI Puros (Islands de interactividad)
+ * Este es un componente que sólo se encarga de cambiar el tema.
+ * Al usar una etiqueta <button> estática en HTML generado por el servidor, Astro
+ * asegura de que llegue instantáneo al cliente, y luego el <script> en el cliente le da vida.
+ */
+---
+
+<button id="theme-toggle" aria-label="Cambiar modo claro/oscuro" class="theme-btn">
+  <!-- Ícono Sol -->
+  <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+  
+  <!-- Ícono Luna -->
+  <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+
+<style>
+  .theme-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    background: transparent;
+    transition: var(--transition);
+  }
+  
+  .theme-btn:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+
+  /* Control de display de iconos basado en el padre <html> */
+  :global(.dark) .sun-icon { display: block; }
+  :global(.dark) .moon-icon { display: none; }
+  
+  :global(:not(.dark)) .sun-icon { display: none; }
+  :global(:not(.dark)) .moon-icon { display: block; }
+</style>
+
+<script>
+  // Astro <script> es tratado como un módulo, se ejecuta una vez en el cliente por página (a menos que haya view transitions re-renders)
+  
+  const setupThemeToggle = () => {
+    const btn = document.getElementById('theme-toggle');
+    
+    // Es buena práctica verificar si el botón existe
+    if(btn) {
+      btn.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    }
+  };
+
+  setupThemeToggle();
+
+  // Escuchar el evento de View Transitions para volver a conectar el listener si se navega
+  document.addEventListener('astro:page-load', setupThemeToggle);
+</script>

@@ -1,0 +1,8 @@
+{
+  "title": "E-Commerce App",
+  "description": "Aplicación de comercio electrónico enfocada a Mobile First. Carrito de compras, pasarela de pagos emulada y animaciones fluídas.",
+  "imageObj": "../../assets/images/project2.png",
+  "tags": ["Astro", "SolidJS", "CSS Modules", "Stripe"],
+  "repoUrl": "https://github.com/tu-usuario/ecommerce-app",
+  "order": 2
+}

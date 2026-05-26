@@ -1,0 +1,111 @@
+/* Importando la fuente Onest desde Google Fonts (una fuente muy elegante para tech y legibilidad) */
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
+
+:root {
+  /* =========================================
+     DESIGN SYSTEM: Light Mode (Variables Base)
+     ========================================= */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  
+  --border-color: #e2e8f0;
+  
+  /* Accent Colors */
+  --accent-blue: #2563eb;
+  --accent-glow: rgba(37, 99, 235, 0.1);
+
+  /* Utilities */
+  --container-width: 1100px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  
+  /* Font Family */
+  --font-sans: 'Onest', system-ui, -apple-system, sans-serif;
+}
+
+/* =========================================
+   DESIGN SYSTEM: Dark Mode
+   Astro no maneja el estado del cliente, así que usaremos 
+   estas variables cambiadas mediante la clase .dark en <html>
+   ========================================= */
+html.dark {
+  --bg-primary: #09090b; /* Zinc 950, un negro muy elegante */
+  --bg-secondary: #18181b; /* Zinc 900 */
+  --bg-tertiary: #27272a; /* Zinc 800 */
+  
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  
+  --border-color: #3f3f46;
+  
+  --accent-blue: #3b82f6;
+  --accent-glow: rgba(59, 130, 246, 0.15);
+}
+
+/* =========================================
+   CSS RESET
+   Un reset moderno para evitar inconsistencias entre navegadores
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  /* El color de fondo base transiciona suavemente al alternar el modo oscuro */
+  background-color: var(--bg-primary); 
+  color: var(--text-primary);
+  /* Evita el salto por la barra de desplazamiento */
+  overflow-y: scroll;
+}
+
+body {
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Clases utilitarias globales */
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 1.5rem; /* Padding horizontal para mobile */
+}
+
+/* Estilo para las View Transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+}

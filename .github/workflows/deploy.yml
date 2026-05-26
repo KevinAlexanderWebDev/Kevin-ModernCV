@@ -1,0 +1,49 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Dispara el workflow automáticamente cuando se hace push a la rama main
+  push:
+    branches: [ main ]
+  # Permite ejecutar este workflow manualmente desde la pestaña Actions
+  workflow_dispatch:
+
+# Otorga permisos del GITHUB_TOKEN necesarios para hacer el deploy a Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permite solo un despliegue concurrente (evita colisiones cuando haces varios pushes rápido)
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+env:
+  BUILD_PATH: "." # Modifica si tu proyecto no está en la raíz
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Install, build, and upload your site
+        uses: withastro/action@v2
+        with:
+            path: ${{ env.BUILD_PATH }}
+            # Si usas npm, pnpm o yarn, asegúrate de tener el lockfile correcto en el repositorio
+            # node-version: 20s
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

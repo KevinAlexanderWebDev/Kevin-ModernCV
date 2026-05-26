@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from '../ui/ProjectCard.astro';
+
+// Obtenemos todos los proyectos de la colección, Astro valida tipos automáticamente aquí.
+const allProjects = await getCollection('projects');
+// Ordenamos los proyectos
+const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
+
+/**
+ * MASTERCLASS: CSS Grid vs Flexbox
+ * El usuario pidió usar Grid. CSS Grid es bidimensional, ideal para layouts de cartas
+ * donde queremos un número estricto de columnas que fluyan (Ej. 1 en mobile, 2 tablet, 3 desktop)
+ * Flexbox puede hacer esto con flex-wrap, pero Grid mantiene alineaciones perfectas.
+ */
+---
+
+<section id="projects" class="projects-section container">
+  <div class="section-header">
+    <h2 class="section-title">Trabajos <span class="highlight">Recientes</span></h2>
+    <p class="section-subtitle">Una selección de proyectos escalables construidos con tecnologías modernas.</p>
+  </div>
+
+  <div class="projects-grid">
+    {projects.map(project => (
+      <ProjectCard project={project} />
+    ))}
+  </div>
+</section>
+
+<style>
+  .projects-section {
+    padding: 6rem 1.5rem;
+  }
+
+  .section-header {
+    margin-bottom: 4rem;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .highlight {
+    color: var(--accent-blue);
+  }
+
+  .section-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Implementación de CSS GRID pura */
+  .projects-grid {
+    display: grid;
+    /* auto-fit llena el espacio con columnas que miden al menos 320px */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+</style>

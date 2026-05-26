@@ -1,11 +1,36 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/navigation/Navbar.astro';
+import Hero from '../components/sections/Hero.astro';
+import About from '../components/sections/About.astro';
+import ProjectsGrid from '../components/sections/ProjectsGrid.astro';
+import CertificatesGrid from '../components/sections/CertificatesGrid.astro';
+import Footer from '../components/sections/Footer.astro';
+import WhatsAppBtn from '../components/ui/WhatsAppBtn.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Configuraciones base (puedes sacarlas de Content Collections también)
+const title = "Portfolio | Senior Web Developer";
+const description = "Portafolio profesional, diseñado con Astro 4.x y arquitectura moderna.";
 ---
 
-<Layout>
-	<Welcome />
+<!-- 
+MASTERCLASS: Ensamblaje en Astro 
+Nuestra página index.astro es como un LEGO gigante. Traemos todas las "Sections" y la carcasa "Layout".
+Como todo esto es SSG (Static Site Generation), Astro compilará este archivo y 
+entregará un `index.html` estático, sin dependencias de React en runtime, 
+lo cual te da 100 de score en Lighthouse.
+-->
+<Layout title={title} description={description} lang="es">
+	<Navbar />
+	
+	<!-- Los componentes en Astro son slots estáticos que se integran en el main content -->
+	<Hero />
+	<About />
+	<ProjectsGrid />
+	<CertificatesGrid />
+	
+	<Footer />
+	
+	<!-- Elemento UI Flotante -->
+	<WhatsAppBtn />
 </Layout>

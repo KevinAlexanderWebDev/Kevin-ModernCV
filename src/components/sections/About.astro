@@ -1,0 +1,98 @@
+---
+// Chips Data: Buena práctica aislar la data (Separation of Concerns).
+const skills = [
+  "HTML5 & CSS Moderno", "JavaScript (ES6+)", "TypeScript", 
+  "Astro", "React & Next.js", "Angular", 
+  "PHP", ".NET (Blazor/MAUI)", "Python"
+];
+---
+
+<section id="about" class="about-section container">
+  <div class="about-grid">
+    <div class="about-text">
+      <h2 class="section-title">Sobre <span class="highlight">Mí</span></h2>
+      <p>
+        Mi viaje en el desarrollo comenzó modificando plantillas HTML y hoy diseño arquitecturas Frontend escalables que soportan miles de usuarios. 
+        Como desarrollador full-stack con fuerte inclinación hacia la UI/UX, creo firmemente en escribir código que no solo las máquinas puedan leer, sino del que otros ingenieros puedan aprender.
+      </p>
+      <p>
+        Me encanta optimizar performance (Lighthouse 100 es mi estándar) y crear experiencias web accesibles. Cuando no estoy codeando, probablemente me encuentres leyendo sobre patrones de diseño o experimentando con IA.
+      </p>
+    </div>
+
+    <div class="skills-wrapper">
+      <h3>Stack Tecnológico Principal</h3>
+      <div class="skills-list">
+        {skills.map(skill => (
+          <span class="skill-chip">{skill}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-section {
+    padding: 6rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 4rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .highlight {
+    color: var(--accent-blue);
+  }
+
+  .about-text p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+  }
+
+  .skills-wrapper h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .skill-chip {
+    padding: 0.5rem 1rem;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+  }
+
+  .skill-chip:hover {
+    background: var(--accent-blue);
+    color: #fff;
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 992px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+</style>

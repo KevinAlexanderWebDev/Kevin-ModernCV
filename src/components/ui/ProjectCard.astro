@@ -1,0 +1,186 @@
+---
+import { Image } from 'astro:assets';
+import kevinImage from '../../assets/astro.svg';
+
+const { project } = Astro.props;
+
+/**
+ * MASTERCLASS: Project Card con efecto 2-imágenes
+ * Implementar esto en HTML/CSS plano implicaba mucho JS si querías transiciones complejas
+ * o anidación sucia. Astro y CSS moderno nos permiten:
+ * 1. Usar <Image> localmente para optimizar la carga.
+ * 2. Con CSS puro y grid, encimamos las imágenes y aplicamos opacidad en el hover.
+ */
+---
+
+<article class="project-card">
+  <div class="card-image-wrapper">
+    <!-- Imagen Principal -->
+     {project.data.imageObj ? (
+        <Image 
+          src={kevinImage} 
+          alt={project.data.title} 
+          width={600} 
+          height={400} 
+          class="img-primary" 
+        />
+        <!-- Imagen Secundaria (Demo, usamos la misma pero aplicamos un filtro para el efecto solicitado) 
+             En un caso real, tendrías un 'project.data.hoverImageObj' -->
+        <Image 
+          src={kevinImage} 
+          alt={`${project.data.title} alternativo`} 
+          width={600} 
+          height={400} 
+          class="img-secondary" 
+        />
+     ) : (
+        <div class="placeholder-img">Sin Imagen</div>
+     )}
+     
+     <div class="card-overlay">
+        <div class="links">
+          {project.data.repoUrl && <a href={project.data.repoUrl} target="_blank" rel="noopener noreferrer" class="social-btn">Código</a>}
+          {project.data.liveUrl && <a href={project.data.liveUrl} target="_blank" rel="noopener noreferrer" class="social-btn">Demo</a>}
+        </div>
+     </div>
+  </div>
+
+  <div class="card-content">
+    <h3 class="card-title">{project.data.title}</h3>
+    <p class="card-description">{project.data.description}</p>
+    <div class="tags">
+      {project.data.tags.map((tag: string) => (
+        <span class="tag">{tag}</span>
+      ))}
+    </div>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: var(--accent-blue);
+  }
+
+  .card-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: var(--bg-tertiary);
+  }
+
+  /* Efecto de las 2 imágenes */
+  .img-primary, .img-secondary {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.4s ease, transform 0.6s ease;
+  }
+
+  .img-secondary {
+    opacity: 0;
+    /* Efecto para diferenciarla si es la misma imagen (Escala y Sepia oscuro) */
+    transform: scale(1.1);
+    filter: brightness(0.7) contrast(1.2);
+  }
+
+  .project-card:hover .img-primary {
+    opacity: 0;
+  }
+
+  .project-card:hover .img-secondary {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+  }
+
+  .project-card:hover .card-overlay {
+    opacity: 1;
+  }
+
+  .links {
+    display: flex;
+    gap: 1rem;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover .links {
+    transform: translateY(0);
+  }
+
+  .social-btn {
+    padding: 0.5rem 1.2rem;
+    background: var(--accent-blue);
+    color: white;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+  }
+
+  .social-btn:hover {
+    background: #1d4ed8;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .card-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    background: var(--bg-primary);
+    color: var(--text-muted);
+    border-radius: 9999px;
+    border: 1px solid var(--border-color);
+  }
+</style>

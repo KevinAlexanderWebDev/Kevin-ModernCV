@@ -1,23 +1,97 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import { ClientRouter } from "astro:transitions";
+import "@/styles/global.css"; // Nuestro CSS base (Variables, Modo oscuro, reset)
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+// Props del Layout
+interface Props {
+  title: string;
+  description?: string;
+  lang?: string;
+}
+
+const {
+  title,
+  description = "Portafolio profesional y técnico de un Ingeniero de Software.",
+  lang = "es",
+} = Astro.props;
+
+/**
+ * MASTERCLASS: El Layout en Astro
+ * A diferencia del HTML/PHP clásico que repetías el `<head>`, nav, footer por archivo,
+ * en Astro usas Layouts como envoltoria (Wrapper).
+ *
+ * ¿Por qué usamos ViewTransitions?
+ * Esto inyectará un script pequeñísimo en el browser que intercepta tus <a> enlaces locales.
+ * En lugar de recargar la página full-refresh, buscará el nuevo HTML y hará una
+ * animación transparente del DOM, ganando fluidez de SPA (Single Page App) sin React/Vue.
+ */
+---
+
+<!doctype html>
+<html lang={lang} class="light">
+  <!-- Clase base, el script inferior lo ajustará rápido -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Básico -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+
+    <!-- Inyectamos View Transitions Router (En Astro 5+ ahora es ClientRouter) -->
+    <ClientRouter />
+
+    <!-- 
+      DARK MODE INIT SCRIPT
+      Lo colocamos Inline y Bloqueante en el <head> a propósito.
+      ¿Por qué? Para evitar el "FOUC" (Flash of Unstyled Content).
+      Si este script estuviera al final del body o externo, el usuario vería la web blanca 1 segundo 
+      antes de que el JS cambie las variables CSS.
+    -->
+    <script is:inline>
+      const initTheme = () => {
+        const storedTheme =
+          typeof localStorage !== "undefined" && localStorage.getItem("theme");
+        const isSystemDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+
+        if (storedTheme === "dark" || (!storedTheme && isSystemDark)) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      };
+
+      initTheme();
+
+      // Es vital re-correrlo cuando Astro hace una View Transition hacia otra página,
+      // puesto que el document a veces se reconstruye y se pierde la clase sin esto:
+      document.addEventListener("astro:after-swap", initTheme);
+    </script>
+  </head>
+
+  <body>
+    <!-- <Navbar /> se inyectará después -->
+    <main class="main-content">
+      <slot />
+      <!-- Aquí es donde se "renderizarán" tus páginas (index.astro, etc) -->
+    </main>
+    <!-- <Footer /> se inyectará después -->
+
+    <style>
+      .main-content {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        /* Padding top para compensar un navbar fijo (fixed/sticky) que crearemos después */
+        padding-top: 80px;
+      }
+    </style>
+  </body>
+</html>
