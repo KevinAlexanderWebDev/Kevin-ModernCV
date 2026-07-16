@@ -1,0 +1,18 @@
+{
+  "title": "Ecosistema NutFuel - Multiplataforma",
+  "description": "Sistema de software comercial diseñado para la distribución, enrutamiento y control de inventario de suplementos orgánicos de múltiples marcas.",
+  "imageObj": "/assets/images/projects/yellow-flower-day/desktop-1.webp",
+  "hoverImageObj": "/assets/images/projects/yellow-flower-day/desktop-2.webp",
+  "mobileImages": [
+    "/assets/images/projects/yellow-flower-day/mobile-1.webp",
+    "/assets/images/projects/yellow-flower-day/mobile-2.webp"
+  ],
+  "tags": ["#C", "Visual Studio 2022", "Razor", ".Net", "MVVM", "SQL Server"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/Yellow-Flower-Day",
+  "liveUrl": "https://kevinalexanderwebdev.github.io/Yellow-flower-day/",
+  "featured": false,
+  "status": "live",
+  "order": 7,
+  "titleKey": "proyectos.13",
+  "descriptionKey": "proyectosspan.13"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Vercel",
+  "category": "tools",
+  "icon": "vercel",
+  "order": 20,
+  "nameKey": "li.vercel"
+}

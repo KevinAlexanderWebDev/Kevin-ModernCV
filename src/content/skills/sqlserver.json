@@ -1,0 +1,7 @@
+{
+  "name": "SQL - Server",
+  "category": "technical",
+  "icon": "sql",
+  "order": 25,
+  "nameKey": "li.sql"
+}

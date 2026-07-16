@@ -1,0 +1,10 @@
+{
+  "title": "Carta de Recomendación | Pymetech",
+  "issuer": "Pymetech",
+  "issueDate": "2025-06-20",
+  "imageObj": "/assets/images/certificates/carta-recomendacion-pymetech.webp",
+  "thumbnailObj": "/assets/images/certificates/carta-recomendacion-pymetech-thumb.webp",
+  "order": 6,
+  "titleKey": "nav.ct5",
+  "issuerKey": "nav.ct5_issuer"
+}

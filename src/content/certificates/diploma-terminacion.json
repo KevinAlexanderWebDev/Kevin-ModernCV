@@ -1,0 +1,10 @@
+{
+  "title": "Diploma Terminación de Estudios",
+  "issuer": "Instituto Tecnológico Superior de Naranjos",
+  "issueDate": "2025-03-15",
+  "imageObj": "/assets/images/certificates/diploma-terminacion.webp",
+  "thumbnailObj": "/assets/images/certificates/diploma-terminacion-thumb.webp",
+  "order": 3,
+  "titleKey": "nav.ct3",
+  "issuerKey": "nav.ct3_issuer"
+}

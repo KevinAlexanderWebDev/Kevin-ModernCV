@@ -1,32 +1,45 @@
 ---
-// Chips Data: Buena práctica aislar la data (Separation of Concerns).
-const skills = [
-  "HTML5 & CSS Moderno", "JavaScript (ES6+)", "TypeScript", 
-  "Astro", "React & Next.js", "Angular", 
-  "PHP", ".NET (Blazor/MAUI)", "Python"
-];
+interface Props {
+  personal: any;
+  skills: any[];
+  t: any;
+}
+const {personal, skills, t} = Astro.props;
+const skillsByCategory = {
+  technical: skills.filter(s => s.data.category === 'technical'),
+  soft: skills.filter(s => s.data.category === 'soft'),
+  tools: skills.filter(s => s.data.category === 'tools'),
+};
 ---
 
 <section id="about" class="about-section container">
   <div class="about-grid">
     <div class="about-text">
-      <h2 class="section-title">Sobre <span class="highlight">Mí</span></h2>
-      <p>
-        Mi viaje en el desarrollo comenzó modificando plantillas HTML y hoy diseño arquitecturas Frontend escalables que soportan miles de usuarios. 
-        Como desarrollador full-stack con fuerte inclinación hacia la UI/UX, creo firmemente en escribir código que no solo las máquinas puedan leer, sino del que otros ingenieros puedan aprender.
-      </p>
-      <p>
-        Me encanta optimizar performance (Lighthouse 100 es mi estándar) y crear experiencias web accesibles. Cuando no estoy codeando, probablemente me encuentres leyendo sobre patrones de diseño o experimentando con IA.
-      </p>
+      <h2 class="section-title">{t.about?.title || 'Sobre'}
+        <span class="highlight">{t.about?.strengths?.replace('💡', '').replace('Fortalcezas y Habilidades', 'Mí') || 'Mí'}</span>
+      </h2>
+      {personal.bio.map((paragraph:string) => (
+        <p>{paragraph}</p>
+      ))}
     </div>
 
     <div class="skills-wrapper">
-      <h3>Stack Tecnológico Principal</h3>
-      <div class="skills-list">
-        {skills.map(skill => (
-          <span class="skill-chip">{skill}</span>
-        ))}
-      </div>
+      <h3>{t.about?.skills || '🛠️ Conocimientos'}</h3>
+      {Object.entries(skillsByCategory).map(([category, items]) => (
+        <div class="skill-category">
+          <h4 class="category-title">
+            {category.charAt(0).toUpperCase() + category.slice(1)}
+          </h4>
+           <div class="skills-list">
+            {items.map(skill => (
+              <span class="skill-chip">
+                {skill.data.icon && <span class="skill-icon" data-icon={skill.data.icon} />}
+                {skill.data.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   </div>
 </section>
@@ -88,6 +101,16 @@ const skills = [
     border-color: var(--accent-blue);
     transform: translateY(-2px);
   }
+
+  .skill-category { margin-bottom: 2rem; }
+  .category-title { 
+    font-size: 1rem; 
+    color: var(--text-muted); 
+    text-transform: uppercase; 
+    letter-spacing: 0.05em; 
+    margin-bottom: 0.75rem; 
+  }
+  .skill-icon { display: inline-block; width: 16px; height: 16px; margin-right: 0.5rem; }
 
   @media (max-width: 992px) {
     .about-grid {

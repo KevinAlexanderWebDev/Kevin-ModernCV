@@ -1,0 +1,147 @@
+<button 
+  id="scroll-to-top" 
+  class="scroll-btn" 
+  aria-label="Volver al inicio"
+  type="button">
+    <svg 
+        class="scroll-icon" 
+        width="24" 
+        height="24" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor" 
+        stroke-width="2" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        aria-hidden="true">
+        <path d="M18 15l-6-6-6 6"/>
+    </svg>
+</button>
+
+<style>
+  .scroll-btn {
+    position: fixed;
+    bottom: 6rem;           
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background: var(--accent-blue);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 
+      0 4px 14px rgba(37, 99, 235, 0.4),
+      0 0 0 0 rgba(37, 99, 235, 0.5);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.9);
+    transition: 
+      opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      visibility 0.3s,
+      transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .scroll-btn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .scroll-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 
+      0 8px 25px rgba(37, 99, 235, 0.5),
+      0 0 0 4px rgba(37, 99, 235, 0.3);
+  }
+
+  .scroll-btn:focus-visible {
+    outline: 3px solid var(--accent-blue);
+    outline-offset: 4px;
+  }
+
+  .scroll-icon {
+    transition: transform 0.2s ease;
+  }
+  
+  .scroll-btn:hover .scroll-icon {
+    transform: translateY(-2px);
+  }
+
+  /* Dark mode - ajustes */
+  :global(html.dark) .scroll-btn {
+    background: var(--accent-blue);
+    box-shadow: 
+      0 4px 14px rgba(59, 130, 246, 0.5),
+      0 0 0 0 rgba(59, 130, 246, 0.5);
+  }
+  
+  :global(html.dark) .scroll-btn:hover {
+    box-shadow: 
+      0 8px 25px rgba(59, 130, 246, 0.6),
+      0 0 0 4px rgba(59, 130, 246, 0.4);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .scroll-btn {
+      bottom: 5rem;        
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .scroll-btn {
+      bottom: 4.5rem;
+      right: 1rem;
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-btn {
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+  }
+</style>
+
+<script>
+  const THRESHOLD = 400;
+  const btn = document.getElementById('scroll-to-top');
+  
+  if (btn) {
+    const toggleVisibility = () => {
+    if (window.scrollY > THRESHOLD) {
+      btn.classList.add('show');
+    } else {
+      btn.classList.remove('show');
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  window.addEventListener('scroll', toggleVisibility, { passive: true });
+  btn.addEventListener('click', scrollToTop);
+  
+  toggleVisibility();
+
+  document.addEventListener('astro:page-load', () => {
+    toggleVisibility();
+  });
+
+  // Limpieza (opcional, para SPAs reales)
+  // document.addEventListener('astro:before-preparation', () => {
+  //   window.removeEventListener('scroll', toggleVisibility);
+  // });
+  }
+</script>

@@ -1,0 +1,7 @@
+{
+  "name": "WordPress",
+  "category": "technical",
+  "icon": "wordpress",
+  "order": 10,
+  "nameKey": "li.wordpress"
+}

@@ -1,35 +1,97 @@
 ---
-// Footer and Contact section
+interface Props {
+  personal: any;
+  t: any;
+}
+
+const { personal, t } = Astro.props;
+
+// Defensive: ensure personal and t are objects with safe defaults
+const p = personal ?? {};
+const translations = t ?? {};
+const currentLang = Astro.url.pathname.split('/')[1] || 'es';
+
+// Extract translation values safely
+const contactoTitle = translations.contacto?.title ?? '¿Empezamos un proyecto?';
+const formName = translations.form?.name ?? 'Nombre';
+const formEmail = translations.form?.email ?? 'Correo electrónico';
+const formMessage = translations.form?.message ?? 'Mensaje';
+const footerCopy = translations.footer?.copy ?? `© ${new Date().getFullYear()} ${p.name ?? 'Kevin Alexander Meza Morales'}`;
+
+const formAction = `https://formsubmit.co/${p.email ?? 'mezamoraleskevinalexander@gmail.com'}`;
+const thankYouUrl = `/${currentLang}/gracias/`;
 ---
 
 <footer id="contact" class="footer">
   <div class="container footer-content">
     <div class="contact-card">
-      <h2>¿Empezamos un <span class="highlight">proyecto</span>?</h2>
+      <h2>{contactoTitle}</h2>
       <p>Siempre estoy abierto a discutir trabajo de desarrollo web o oportunidades de asociación.</p>
       
-      <a href="mailto:hola@tu-dominio.com" class="btn btn-primary contact-btn">
-        Envíame un correo
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-      </a>
+      <form action={formAction} method="POST" class="form-contacto" novalidate>
+        <input type="hidden" name="_next" value={thankYouUrl}>
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value={`Nuevo contacto desde portafolio (${currentLang.toUpperCase()})`}>
+        
+        <div class="form-group">
+          <label for="nombre">{formName}</label>
+          <input id="nombre" name="name" type="text" placeholder={formName} required aria-required="true" />
+        </div>
+        
+        <div class="form-group">
+          <label for="correo">{formEmail}</label>
+          <input id="correo" name="email" type="email" placeholder={formEmail} required aria-required="true" />
+        </div>
+        
+        <div class="form-group">
+          <label for="mensaje">{formMessage}</label>
+          <textarea id="mensaje" name="message" placeholder={formMessage} rows="4" required aria-required="true"></textarea>
+        </div>
+        
+        <button 
+          type="submit" 
+          class="btn btn-primary contact-btn"
+          aria-label={translations.form?.submit ?? 'Enviar'}>
+          {translations.form?.submit ?? 'Enviar'}
+          <svg 
+            width="20" 
+            height="20" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            stroke-width="2" 
+            stroke-linecap="round" 
+            stroke-linejoin="round"
+            aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
     </div>
 
     <div class="footer-bottom">
       <div class="social-links">
-        <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub">
+        <a href={p.social?.github} target="_blank" rel="noopener" aria-label="GitHub">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <a href={p.social?.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
         </a>
+        {p.social?.facebook && (
+          <a href={p.social.facebook} target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        )}
       </div>
       
       <p class="copyright">
-        &copy; {new Date().getFullYear()} Creado con ❤️ y 🚀 usando <a href="https://astro.build" target="_blank" class="highlight-link">Astro</a>.
+        {footerCopy}
       </p>
     </div>
   </div>
 </footer>
+
 
 <style>
   .footer {
@@ -67,9 +129,111 @@
   .contact-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 2.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.02rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.274);
+    background: linear-gradient(135deg, var(--accent-blue) 0%, #7c3aed 100%);
+    color: white;
+    box-shadow: 
+    0 4px 20px rgba(37, 99, 235, 0.35),
+    0 0 0 0 rgba(37, 99, 235, 0.4);
+  }
+
+  .contact-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #7c3aed 0%, var(--accent-blue) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+    border-radius: inherit;
+  }
+
+  .contact-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+    );
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+    z-index: 1;
+  }
+
+  .contact:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+    0 12px 35px rgba(37, 99, 235, 0.45),
+    0 0 0 0 rgba(37, 99, 235, 0.6)
+  }
+
+  .contact:hover::before {
+    opacity: 1;
+  }
+
+  .contact-btn::after {
+    left: 200%;
+  }
+
+  .contact-btn:active {
+    transform: translateY(-1px) scale(0.98);
+  }
+
+  .contact-btn:focus-visible {
+    outline: 3px solid var(--accent-blue);
+    outline-offset: 4px;
+  }
+
+  .contact-btn svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    flex-shrink: 0;
+  }
+
+  :global(html.dark) .contact-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  box-shadow: 
+    0 4px 20px rgba(59, 130, 246, 0.4),
+    0 0 0 0 rgba(59, 130, 246, 0.5);
+  }
+
+  :global(html.dark) .contact-btn::before {
+    background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  }
+
+  :global(html.dark) .contact-btn:hover {
+    box-shadow: 
+      0 12px 35px rgba(59, 130, 246, 0.55),
+      0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+
+  /* Reducir movimiento */
+  @media (prefers-reduced-motion: reduce) {
+    .contact-btn,
+    .contact-btn::before,
+    .contact-btn::after,
+    .contact-btn svg {
+      transition: none !important;
+    }
   }
 
   .footer-bottom {
@@ -79,6 +243,42 @@
     gap: 1.5rem;
     border-top: 1px solid var(--border-color);
     padding-top: 2rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.75rem;
+  }
+
+  .form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-primary); 
+    font-size: 0.95rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 0.75rem 1rem;
+    border: 1px solid #cccccc; 
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #222222; 
+    background-color: #ffffff; 
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #999999;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #6c63ff; /* Violeta (color principal) */
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
   }
 
   .social-links {
@@ -107,3 +307,16 @@
     text-decoration: underline;
   }
 </style>
+
+<script>
+  const form = document.querySelector('.form-contacto');
+  form?.addEventListener('submit', (e) => {
+    const name = form?.querySelector<HTMLInputElement>('#nombre');
+    const email = form?.querySelector<HTMLInputElement>('#correo');
+    const message = form?.querySelector<HTMLTextAreaElement>('#mensaje');
+    if (!name?.value?.trim() || !email?.value.trim() || !message?.value.trim()) {
+      e.preventDefault();
+      alert('Por favor, completa todos los campos');
+    }
+  });
+</script>

@@ -1,0 +1,7 @@
+{
+  "name": "Blazor && Razor",
+  "category": "technical",
+  "icon": "blazorrazor",
+  "order": 21,
+  "nameKey": "li.blazorrazor"
+}

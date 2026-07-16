@@ -1,0 +1,18 @@
+{
+  "title": "Tienda PYMETECH",
+  "description": "Desarrollo de eCommerce para empresa tecnológica en Tampico, con diseño responsive, SEO y personalización en WordPress.",
+  "imageObj": "/assets/images/projects/pymetech/desktop-1.webp",
+  "hoverImageObj": "/assets/images/projects/pymetech/desktop-2.webp",
+  "mobileImages": [
+    "/assets/images/projects/pymetech/mobile-1.webp",
+    "/assets/images/projects/pymetech/mobile-2.webp"
+  ],
+  "tags": ["WordPress", "WooCommerce", "CSS", "UI/UX", "HTML", "JS", "PHP"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/pymetech-store",
+  "liveUrl": "https://pymetech.com.mx/tienda",
+  "featured": true,
+  "status": "live",
+  "order": 1,
+  "titleKey": "proyectos.1",
+  "descriptionKey": "proyectosspan.1"
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Calculadora Básica en Python con Tkinter",
+  "description": "Una calculadora gráfica sencilla creada con Python y Tkinter. Permite realizar operaciones básicas como suma, resta, multiplicación y división entre dos números.",
+  "imageObj": "/assets/images/projects/calculadora-python/desktop-1.webp",
+  "hoverImageObj": "/assets/images/projects/calculadora-python/desktop-2.webp",
+  "tags": ["Python", "Tkinter"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/Calculadora-B-sica-en-Python-con-Tkinter",
+  "liveUrl": "",
+  "featured": false,
+  "status": "live",
+  "order": 11,
+  "titleKey": "proyectos.11",
+  "descriptionKey": "proyectosspan.11"
+}

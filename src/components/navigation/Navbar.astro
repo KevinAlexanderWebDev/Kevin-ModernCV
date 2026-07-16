@@ -1,33 +1,24 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
 
-// Obtenemos la url actual para saber si estamos en español o ingles (para el i18n toggle)
-const { pathname } = Astro.url;
-const isEnglish = pathname.startsWith("/en");
+interface Props {
+  currentLang: 'es' | 'en';
+  t: Record<string, string>; //t.nav <--
+}
 
-// Rutas generadas:
-const togglePath = isEnglish ? "/" : "/en/";
-
-/**
- * MASTERCLASS: Navbar Responsive c/ CSS Moderno
- * En HTML puro, tendrías un div enorme o jQuery para ocultar/mostrar el menú.
- * Aquí usaremos `<style>` encapsulado (Astro hace scope automático de las clases,
- * por lo que `.nav-links` solo aplica a este archivo y no rompe nada más en tu web).
- */
+const {currentLang, t} = Astro.props;
+const togglePath = currentLang === 'es' ? '/en/' : '/es/';
+const toggleLabel = currentLang === 'es' ? 'EN' : 'ES';
 ---
 
 <header class="header">
   <div class="container nav-wrapper">
-    <a href="/" class="logo" aria-label="Ir a inicio">
+    <a href={`/${currentLang}/`}} class="logo" aria-label="Ir a inicio">
       <span>{`<Dev />`}</span>
     </a>
 
     <!-- Botón Hamburguesa para Mobile -->
-    <button
-      class="mobile-menu-btn"
-      aria-label="Abrir menú"
-      id="mobile-menu-btn"
-    >
+    <button class="mobile-menu-btn" aria-label={t['nav.menu'] || 'Abrir menú'} id="mobile-menu-btn">
       <svg
         width="24"
         height="24"
@@ -37,28 +28,25 @@ const togglePath = isEnglish ? "/" : "/en/";
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        ><line x1="3" y1="12" x2="21" y2="12"></line><line
-          x1="3"
-          y1="6"
-          x2="21"
-          y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg
-      >
+        >
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
     </button>
 
     <nav class="nav-links" id="nav-links">
-      <ul class="nav-list">
-        <li><a href="#about" class="nav-item">Sobre mí</a></li>
-        <li><a href="#projects" class="nav-item">Proyectos</a></li>
-        <li><a href="#certificates" class="nav-item">Certificaciones</a></li>
-        <li><a href="#contact" class="nav-item">Contacto</a></li>
+       <ul class="nav-list">
+        <li><a href={`/${currentLang}/#about`} class="nav-item">{t['nav.about'] || 'Sobre mí'}</a></li>
+        <li><a href={`/${currentLang}/#projects`} class="nav-item">{t['nav.projects'] || 'Proyectos'}</a></li>
+        <li><a href={`/${currentLang}/#certificates`} class="nav-item">{t['nav.certificates'] || 'Certificados'}</a></li>
+        <li><a href={`/${currentLang}/#contact`} class="nav-item">{t['nav.contact'] || 'Contacto'}</a></li>
       </ul>
 
       <div class="nav-actions">
-        <!-- Switch de Idioma (Irá por SSG real usando astro.url) -->
-        <a href={togglePath} class="lang-toggle" aria-label="Cambiar idioma">
-          {isEnglish ? "ES" : "EN"}
+        <a href={togglePath} class="lang-toggle" aria-label={t['nav.switchLang'] || 'Cambiar Idioma'}>
+          {toggleLabel}
         </a>
-
         <ThemeToggle />
       </div>
     </nav>

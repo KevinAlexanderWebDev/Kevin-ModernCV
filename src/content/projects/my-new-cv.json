@@ -1,0 +1,18 @@
+{
+  "title": "My New CV",
+  "description": "Nuevo currículum vitae (CV) o portafolio de proyectos en formato Web, realizado con nuevas tecnologias y que refleja los nuevos conocimientos y proyectos realizados",
+  "imageObj": "/assets/images/projects/yellow-flower-day/desktop-1.webp",
+  "hoverImageObj": "/assets/images/projects/yellow-flower-day/desktop-2.webp",
+  "mobileImages": [
+    "/assets/images/projects/yellow-flower-day/mobile-1.webp",
+    "/assets/images/projects/yellow-flower-day/mobile-2.webp"
+  ],
+  "tags": ["Astro", "HTML", "CSS", "Javascript", "Typescript", "Vercel", "Zod", "i18n", "Islands Arquitecture"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/Yellow-Flower-Day",
+  "liveUrl": "https://kevinalexanderwebdev.github.io/Yellow-flower-day/",
+  "featured": false,
+  "status": "live",
+  "order": 7,
+  "titleKey": "proyectos.15",
+  "descriptionKey": "proyectosspan.15"
+}

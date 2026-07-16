@@ -1,9 +1,0 @@
-{
-  "title": "Sphere Dashboard",
-  "description": "Un panel de control web moderno construido con React, con estado global y optimización extrema de re-renderizados simulados.",
-  "imageObj": "../../assets/images/project1.png",
-  "tags": ["React", "TypeScript", "Tailwind", "Zustand"],
-  "repoUrl": "https://github.com/tu-usuario/sphere-dashboard",
-  "liveUrl": "https://sphere-dashboard-demo.com",
-  "order": 1
-}

@@ -2,8 +2,6 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  // Desactivamos la construcción por defecto en /public para que los assets 
-  // que pasemos a través de Content Collections y el tag <Image /> se compilen eficientemente
   build: {
     assets: 'assets',
   },
@@ -11,5 +9,5 @@ export default defineConfig({
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'hover'
-  }
+  },
 });

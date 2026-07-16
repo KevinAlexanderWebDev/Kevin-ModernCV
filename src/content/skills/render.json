@@ -1,0 +1,7 @@
+{
+  "name": "Render",
+  "category": "tools",
+  "icon": "render",
+  "order": 24,
+  "nameKey": "li.render"
+}

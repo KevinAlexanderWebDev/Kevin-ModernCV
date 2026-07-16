@@ -1,0 +1,7 @@
+{
+  "name": "Windows Forms",
+  "category": "technical",
+  "icon": "wpf",
+  "order": 20,
+  "nameKey": "li.winforms"
+}

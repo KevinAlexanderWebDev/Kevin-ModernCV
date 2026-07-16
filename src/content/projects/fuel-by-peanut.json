@@ -1,0 +1,14 @@
+{
+  "title": "Fuel by Peanut",
+  "description": "E-commerce para venta de suplementos deportivos y nutrición. Carrito de compras, pasarela de pagos, gestión de inventario y panel de administración.",
+  "imageObj": "/assets/images/projects/paused-projects/fuel-by-peanut/fuel-by-peanut-desktop.webp",
+  "hoverImageObj": "/assets/images/projects/paused-projects/fuel-by-peanut/fuel-by-peanut-desktop.webp",
+  "tags": ["SCSS", "UI/UX", "HTML", "Angular", "Vercel", "TS", "IA"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/fuel-by-peanut",
+  "liveUrl": "",
+  "featured": false,
+  "status": "wip",
+  "order": 13,
+  "titleKey": "proyectos.activos",
+  "descriptionKey": "activosspan"
+}

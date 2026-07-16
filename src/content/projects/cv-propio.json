@@ -1,0 +1,18 @@
+{
+  "title": "CV Propio",
+  "description": "Este código fue realizado para la creación de mi currículum vitae (cv), con la finalidad de aumentar mi impacto y nivel de conversión ante los empleadores, demostrar mis conocimientos y, sobre todo, las enormes ganas que tengo de formar parte del mundo tech.",
+  "imageObj": "/assets/images/projects/cv-propio/desktop-1.webp",
+  "hoverImageObj": "/assets/images/projects/cv-propio/desktop-2.webp",
+  "mobileImages": [
+    "/assets/images/projects/cv-propio/mobile-1.webp",
+    "/assets/images/projects/cv-propio/mobile-2.webp"
+  ],
+  "tags": ["First-mobile", "CSS", "UI/UX", "HTML", "TS", "Angular+17", "Vercel for deployment", "IA"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/cv-propio",
+  "liveUrl": "https://cv-propio.vercel.app/",
+  "featured": false,
+  "status": "live",
+  "order": 8,
+  "titleKey": "proyectos.8",
+  "descriptionKey": "proyectosspan.8"
+}

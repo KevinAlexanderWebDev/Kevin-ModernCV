@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/navigation/Navbar.astro';
+import Hero from '../../components/sections/Hero.astro';
+import About from '../../components/sections/About.astro';
+import ProjectsGrid from '../../components/sections/ProjectsGrid.astro';
+import CertificatesGrid from '../../components/sections/CertificatesGrid.astro';
+import Footer from '../../components/sections/Footer.astro';
+import WhatsAppBtn from '../../components/ui/WhatsAppBtn.astro';
+import ScrolltoTop from '@/components/ui/ScrolltoTop.astro';
+import { getCollection, getEntry } from 'astro:content';
+import { nestKeys } from '../../utils/i18n';
+
+const [projects, certificates, skills, personal, translations] = await Promise.all([
+  getCollection('projects', ({ data }) => data.status !== 'archived'),
+  getCollection('certificates'),
+  getCollection('skills'),
+  getEntry('personal', 'main'),
+  getEntry('translations', 'es'),
+]);
+
+projects.sort((a, b) => a.data.order - b.data.order);
+certificates.sort((a, b) => a.data.order - b.data.order);
+skills.sort((a, b) => a.data.order - b.data.order);
+
+// getEntry returns the entry directly with .data being the JSON object
+const t = nestKeys(translations?.data ?? {});
+
+// Defensive: ensure personal has data
+const personalData = personal?.data ?? {
+  name: 'Kevin Alexander Meza Morales',
+  title: 'Desarrollador TIC | Web Developer',
+  tagline: 'Apasionado por el mundo Tecnológico, soluciones modernas y plasmar mis ideas en código.',
+  bio: [],
+  photo: '',
+  email: 'mezamoraleskevinalexander@gmail.com',
+  phone: '528112765379',
+  social: {
+    github: 'https://github.com/KevinAlexanderWebDev',
+    linkedin: 'https://www.linkedin.com/in/kevin-meza-ecommerce-dev/',
+    facebook: 'https://www.facebook.com/kevinalexander.mezamorales?locale=es_LA',
+    whatsapp: '526572182791',
+  },
+};
+
+const title = `${personalData.name} | ${personalData.title}`;
+const description = personalData.tagline;
+---
+
+<Layout title={title} description={description} lang="es">
+    <Navbar currentLang="es" t={t} />
+    <Hero personal={personalData} t={t} />
+    <About personal={personalData} skills={skills} t={t} />
+    <ProjectsGrid projects={projects} t={t} />
+    <CertificatesGrid certificates={certificates} t={t} />
+    <Footer personal={personalData} t={t} />
+    <WhatsAppBtn phone={personalData.social.whatsapp ?? '528332875807'} />
+    <ScrolltoTop />
+</Layout>

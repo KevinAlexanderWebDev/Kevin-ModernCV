@@ -1,0 +1,18 @@
+{
+  "title": "CV Naidelin Anaí",
+  "description": "Este sitio web fue realizado para la creación del currículum vitae (cv) de la señorita Naidelin Anaí Torres Meza (Ingeniera en Logística) con el propósito de ayudarla en su búsqueda de trabajo y mejorar el impacto que tiene ante los reclutadores. Es un sitio responsive, adaptado para toda pantalla y con un estilo visual encantador.",
+  "imageObj": "/assets/images/projects/cv-naidelin/desktop-1.webp",
+  "hoverImageObj": "/assets/images/projects/cv-naidelin/desktop-2.webp",
+  "mobileImages": [
+    "/assets/images/projects/cv-naidelin/mobile-1.webp",
+    "/assets/images/projects/cv-naidelin/mobile-2.webp"
+  ],
+  "tags": ["First-mobile", "CSS", "UI/UX", "HTML", "TS", "Angular+17", "Vercel for deployment", "IA"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/cv-naidelin",
+  "liveUrl": "https://cv-naidelin.vercel.app/",
+  "featured": false,
+  "status": "live",
+  "order": 10,
+  "titleKey": "proyectos.10",
+  "descriptionKey": "proyectosspan.10"
+}

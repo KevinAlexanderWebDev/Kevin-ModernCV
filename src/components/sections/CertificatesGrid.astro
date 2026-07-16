@@ -1,30 +1,59 @@
 ---
-import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
+import CertificateModal from '../ui/CertificateModal.astro';
 
-const certificates = await getCollection('certificates');
+interface Props {
+  certificates: any[];
+  t?: any;
+}
+
+const { certificates } = Astro.props;
+
+// Extract certificate data with public paths
+const certsData = certificates.map(cert => ({
+  id: cert.id,
+  title: cert.data?.title ?? 'Certificado',
+  issuer: cert.data?.issuer ?? '',
+  issueDate: cert.data?.issueDate ?? '',
+  thumbnailPath: cert.data?.thumbnailObj,
+  imagePath: cert.data?.imageObj,
+  url: cert.data?.url,
+}));
+
+const certsTitle = 'Certificaciones';
 ---
 
 <section id="certificates" class="certs-section container">
   <div class="section-header">
-    <h2 class="section-title"><span class="highlight">Certificaciones</span></h2>
+    <h2 class="section-title"><span class="highlight">{certsTitle}</span></h2>
   </div>
 
   <div class="certs-grid">
-    {certificates.map(cert => (
-      <a href={cert.data.url || '#'} target="_blank" rel="noopener noreferrer" class="cert-card">
-        <div class="cert-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15l-3-3 3-3 3 3-3 3zm0 0v6M9 12l-6-6M15 12l6-6"/></svg>
-        </div>
+    {certsData.map(cert => (
+      <article class="cert-card" data-cert-id={cert.id}>
+        {cert.thumbnailPath && (
+          <div class="cert-thumb-wrapper">
+            <img
+              src={cert.thumbnailPath}
+              alt={cert.title}
+              width={300}
+              height={200}
+              class="cert-thumb"
+              loading="lazy"
+            />
+          </div>
+        )}
         <div class="cert-info">
-          <h4>{cert.data.title}</h4>
-          <p class="issuer">{cert.data.issuer}</p>
-          <span class="date">{cert.data.issueDate}</span>
+          <h4>{cert.title}</h4>
+          <p class="issuer">{cert.issuer}</p>
+          <span class="date">{cert.issueDate ? new Date(cert.issueDate).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' }) : ''}</span>
         </div>
-      </a>
+      </article>
     ))}
   </div>
 </section>
+
+<!-- Certificate Modal -->
+<CertificateModal certificates={certsData} />
 
 <style>
   .certs-section {
@@ -70,17 +99,22 @@ const certificates = await getCollection('certificates');
     background: var(--bg-primary);
   }
 
-  .cert-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: var(--accent-glow);
-    color: var(--accent-blue);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+  .cert-thumb-wrapper { 
+    width: 100%; 
+    aspect-ratio: 3/2; 
+    overflow: hidden; 
+    border-radius: var(--radius-sm); 
+    margin-bottom: 1rem; 
+    background: var(--bg-tertiary); 
   }
+  
+  .cert-thumb { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: transform 0.3s ease; 
+  }
+  .cert-card:hover .cert-thumb { transform: scale(1.05); }
 
   .cert-info h4 {
     font-size: 1.1rem;
@@ -99,3 +133,50 @@ const certificates = await getCollection('certificates');
     color: var(--text-muted);
   }
 </style>
+
+<script define:vars={{ certsData }}>
+  const modal = document.getElementById('cert-modal');
+  const modalBody = modal?.querySelector('.modal-body');
+
+  const certMap = Object.fromEntries(certsData.map(c => [c.id, c]));
+
+  function openModal(certId) {
+    const data = certMap[certId];
+    if (!data || !modal || !modalBody) return;
+
+    modalBody.innerHTML = `
+      ${data.imagePath ? `<img src="${data.imagePath}" alt="${data.title}" class="modal-image" loading="eager">` : ''}
+      <div class="modal-info">
+        <h3 class="modal-title">${data.title}</h3>
+        <p class="modal-issuer">${data.issuer}</p>
+        <p class="modal-date">${data.issueDate ? new Date(data.issueDate).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}</p>
+        ${data.url ? `<a href="${data.url}" target="_blank" rel="noopener" class="modal-link">Ver Certificado</a>` : ''}
+      </div>
+    `;
+
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal?.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.cert-card[data-cert-id]');
+    if (card) openModal(card.getAttribute('data-cert-id'));
+  });
+
+  if (modal) {
+    modal.querySelectorAll('[data-close]').forEach(btn => {
+      btn.addEventListener('click', closeModal);
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('open')) {
+      closeModal();
+    }
+  });
+</script>

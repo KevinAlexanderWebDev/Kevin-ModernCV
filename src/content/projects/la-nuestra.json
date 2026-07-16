@@ -1,0 +1,18 @@
+{
+  "title": "La Nuestra 🛒",
+  "description": "Desarrollo de un e-commerce inspirado en una tienda de la vida real; al ser mi primer proyecto NO es semántico, no es accesible, no es responsive y, aunque en su momento lo 'clavé' como un proyecto full stack, realmente fue todo front y lo demás pura labia. Es mi bebé, con el que comencé todo, le tengo un especial cariño y me doy cuenta lo mucho que he mejorado en esto. Todo es un coctél de cosas, no sabes en donde enfocar tu vista por tantos eventos que acontecen en el momento pero, no me juzguen, fue mi primer contacto con un desarrollo front-end.",
+  "imageObj": "/assets/images/projects/la-nuestra/desktop-1.webp",
+  "hoverImageObj": "/assets/images/projects/la-nuestra/desktop-2.webp",
+  "mobileImages": [
+    "/assets/images/projects/la-nuestra/mobile-1.webp",
+    "/assets/images/projects/la-nuestra/mobile-2.webp"
+  ],
+  "tags": ["CSS", "HTML", "JS", "IA"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/la-nuestra",
+  "liveUrl": "",
+  "featured": false,
+  "status": "live",
+  "order": 2,
+  "titleKey": "proyectos.2",
+  "descriptionKey": "proyectosspan.2"
+}

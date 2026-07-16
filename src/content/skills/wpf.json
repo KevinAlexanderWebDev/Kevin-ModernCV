@@ -1,0 +1,7 @@
+{
+  "name": "WPF",
+  "category": "technical",
+  "icon": "wpf",
+  "order": 19,
+  "nameKey": "li.wpf"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Figma",
+  "category": "tools",
+  "icon": "figma",
+  "order": 29,
+  "nameKey": "li.figma"
+}

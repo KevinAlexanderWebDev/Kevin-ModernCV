@@ -1,0 +1,18 @@
+{
+  "title": "For My Girl",
+  "description": "Este repositorio fue creado con la finalidad de culminar mis estudios del curso Angular impartido por código facilito. Opté por inspirarme en mi novia para dedicarle esta creación donde no solo empleamos front-end, sino back-end, bases de datos, etc, ¡pruébalo!.",
+  "imageObj": "/assets/images/projects/for-my-girl/desktop-1.webp",
+  "hoverImageObj": "/assets/images/projects/for-my-girl/desktop-2.webp",
+  "mobileImages": [
+    "/assets/images/projects/for-my-girl/mobile-1.webp",
+    "/assets/images/projects/for-my-girl/mobile-2.webp"
+  ],
+  "tags": ["First-mobile", "CSS", "UI/UX", "HTML", "TS", "Angular", "Standalone components", "Node.js", "Express", "Render for back end", "Vercel for deployment", "MongoDB for data base", "IA"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/for-my-girl",
+  "liveUrl": "https://for-my-girl-angular-front.vercel.app/",
+  "featured": false,
+  "status": "live",
+  "order": 6,
+  "titleKey": "proyectos.6",
+  "descriptionKey": "proyectosspan.6"
+}

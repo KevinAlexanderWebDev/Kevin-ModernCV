@@ -1,0 +1,7 @@
+{
+  "name": "C#",
+  "category": "technical",
+  "icon": "csharp",
+  "order": 16,
+  "nameKey": "li.csharp"
+}

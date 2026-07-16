@@ -1,0 +1,18 @@
+{
+  "title": "Sembrando Agua",
+  "description": "Desarrollo de un invernadero con riego automatizado basado en las condiciones climatológicas y empleando la placa Esp32 como el corazón del proyecto. Mi rol principal: Desarrollo de la interfaces visuales para los datos provenientes de los sensores, así como el manejo de datos en bruto en la Base de datos MySQL.",
+  "imageObj": "/assets/images/projects/sembrando-agua/desktop-1.webp",
+  "hoverImageObj": "/assets/images/projects/sembrando-agua/desktop-2.webp",
+  "mobileImages": [
+    "/assets/images/projects/sembrando-agua/mobile-1.webp",
+    "/assets/images/projects/sembrando-agua/mobile-2.webp"
+  ],
+  "tags": ["CSS", "UI/UX", "HTML", "JS", "Bootstrap", "Esp32", "IA"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/sembrando-agua",
+  "liveUrl": "",
+  "featured": false,
+  "status": "live",
+  "order": 4,
+  "titleKey": "proyectos.4",
+  "descriptionKey": "proyectosspan.4"
+}

@@ -1,39 +1,60 @@
 ---
-import { Image } from 'astro:assets';
-/**
- * Importamos la imagen localmente. Astro en tiempo de compilación generará
- * diferentes tamaños, en formato next-gen (WebP/AVIF), y prevendrá el Layout Shift.
- */
-import profileImg from '@/assets/images/profile.png';
+interface Props {
+  personal: any;
+  t: any; 
+}
+
+const {personal, t} = Astro.props;
+
+const profileImg = personal?.photo;
+
+// Generate srcset for profile image (assuming responsive versions exist)
+const profileSrcSet = profileImg 
+  ? `${profileImg.replace('.webp', '-400w.webp')} 400w, ${profileImg.replace('.webp', '-800w.webp')} 800w, ${profileImg.replace('.webp', '-1200w.webp')} 1200w`
+  : undefined;
+const profileSizes = '(max-width: 768px) 100vw, 400px';
+
+const tPresentation = t.about?.presentation ?? '📌 Presentación';
+const tProjectsTitle = t.proyectos?.title?.replace('🚀 ', '').replace('Recent Projects', 'Ver Proyectos') ?? 'Ver Proyectos';
+const tContactTitle = t.contacto?.title ?? 'Contactar';
 ---
 
 <section class="hero-section container" id="home">
   <div class="hero-content">
     <div class="hero-text">
-      <span class="badge">Disponible para nuevos retos</span>
-      <h1 class="title">Construyendo el futuro de la web, un <span class="highlight">componente</span> a la vez.</h1>
-      <p class="subtitle">
-        Soy un Senior Frontend Developer con más de 10 años de experiencia diseñando arquitecturas robustas y pixel-perfect en el ecosistema JavaScript.
-      </p>
+      <span class="badge">{tPresentation}</span>
+      <h1 class="title">
+        {personal?.name ?? 'Kevin Alexander Meza Morales'} <br />
+        <span class="highlight">{personal?.title ?? 'Desarrollador TIC | Web Developer'}</span>
+      </h1>
+      <p class="subtitle">{personal?.tagline ?? 'Apasionado por el mundo Tecnológico, soluciones modernas y plasmar mis ideas en código.'}</p>
       
       <div class="cta-group">
-        <a href="#projects" class="btn btn-primary">Ver Proyectos</a>
-        <a href="#contact" class="btn btn-secondary">Contactar</a>
+        <a href={`/${Astro.url.pathname.split('/')[1]}/#projects`} class="btn btn-primary">
+          {tProjectsTitle}
+        </a>
+        <a href={`/${Astro.url.pathname.split('/')[1]}/#contact`} class="btn btn-secondary">
+          {tContactTitle}
+        </a>
       </div>
     </div>
     
     <div class="hero-image-wrapper">
       <div class="glow-effect"></div>
-      <!-- Componente nativo de Astro. Optimización on-the-fly -->
-      <Image 
-        src={profileImg} 
-        alt="Foto de perfil del desarrollador" 
-        width={400} 
-        height={400} 
-        class="profile-img"
-        loading="eager" 
-        fetchpriority="high"
-      />
+      {profileImg && (
+        <img
+          src={profileImg}
+          alt={personal?.name ?? 'Foto de perfil'}
+          srcset={profileSrcSet}
+          sizes={profileSizes}
+          width={400}
+          height={400}
+          class="profile-img"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      )}
     </div>
   </div>
 </section>

@@ -1,0 +1,7 @@
+{
+  "name": "Node.js",
+  "category": "technical",
+  "icon": "nodejs",
+  "order": 6,
+  "nameKey": "li.nodejs"
+}

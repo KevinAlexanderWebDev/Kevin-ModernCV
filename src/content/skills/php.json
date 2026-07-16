@@ -1,0 +1,7 @@
+{
+  "name": "PHP",
+  "category": "technical",
+  "icon": "php",
+  "order": 11,
+  "nameKey": "li.php"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Git & GitHub",
+  "category": "tools",
+  "icon": "git",
+  "order": 19,
+  "nameKey": "li.git"
+}

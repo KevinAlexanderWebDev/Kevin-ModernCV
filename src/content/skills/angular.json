@@ -1,0 +1,7 @@
+{
+  "name": "Angular",
+  "category": "technical",
+  "icon": "angular",
+  "order": 5,
+  "nameKey": "li.angular"
+}

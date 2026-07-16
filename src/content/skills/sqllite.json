@@ -1,0 +1,7 @@
+{
+  "name": "SQLite",
+  "category": "technical",
+  "icon": "sqlite",
+  "order": 28,
+  "nameKey": "li.sqlite"
+}

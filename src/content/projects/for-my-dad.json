@@ -1,0 +1,18 @@
+{
+  "title": "For My Dad",
+  "description": "Un proyecto web hecho con cariño, para conmemorar el Día del Padre y celebrar todo lo que mi papá significa en mi vida. No acepto malos comentarios o algo por el estilo por temas de subjetividad al deporte y equipo que a él le apasionan.",
+  "imageObj": "/assets/images/projects/for-my-dad/desktop-1.webp",
+  "hoverImageObj": "/assets/images/projects/for-my-dad/desktop-2.webp",
+  "mobileImages": [
+    "/assets/images/projects/for-my-dad/mobile-1.webp",
+    "/assets/images/projects/for-my-dad/mobile-2.webp"
+  ],
+  "tags": ["First-mobile", "CSS", "UI/UX", "HTML", "JS", "IA"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/For-My-Dad",
+  "liveUrl": "https://kevinalexanderwebdev.github.io/ParaPap-/",
+  "featured": false,
+  "status": "live",
+  "order": 5,
+  "titleKey": "proyectos.5",
+  "descriptionKey": "proyectosspan.5"
+}

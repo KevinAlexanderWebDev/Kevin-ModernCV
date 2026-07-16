@@ -1,0 +1,11 @@
+{
+  "title": "Curso Python por Santander Open Academy",
+  "issuer": "Santander",
+  "issueDate": "2025-06-20",
+  "imageObj": "/assets/images/certificates/python-santander.webp",
+  "thumbnailObj": "/assets/images/certificates/python-santander-thumb.webp",
+  "url": "https://santanderopenacademy.com/certificates/tu-certificado",
+  "order": 2,
+  "titleKey": "nav.ct2",
+  "issuerKey": "nav.ct2_issuer"
+}

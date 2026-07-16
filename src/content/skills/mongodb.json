@@ -1,0 +1,7 @@
+{
+  "name": "MongoDB",
+  "category": "technical",
+  "icon": "mongodb",
+  "order": 9,
+  "nameKey": "li.mongodb"
+}

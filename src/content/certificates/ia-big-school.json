@@ -1,0 +1,10 @@
+{
+  "title": "Curso desarrollo de software con IA | Big School",
+  "issuer": "Instituto Tecnológico Superior de Naranjos",
+  "issueDate": "2025-06-20",
+  "imageObj": "/assets/images/certificates/ia-big-school.webp",
+  "thumbnailObj": "/assets/images/certificates/ia-big-school-thumb.webp",
+  "order": 5,
+  "titleKey": "nav.ct6",
+  "issuerKey": "nav.ct6_issuer"
+}

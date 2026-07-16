@@ -1,0 +1,10 @@
+{
+  "title": "Carta de Recomendación | Tic's",
+  "issuer": "Instituto Tecnológico Superior de Naranjos",
+  "issueDate": "2025-06-20",
+  "imageObj": "/assets/images/certificates/carta-recomendacion-tics.webp",
+  "thumbnailObj": "/assets/images/certificates/carta-recomendacion-tics-thumb.webp",
+  "order": 7,
+  "titleKey": "nav.ct7",
+  "issuerKey": "nav.ct7_issuer"
+}

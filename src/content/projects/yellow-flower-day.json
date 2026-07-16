@@ -1,0 +1,18 @@
+{
+  "title": "Yellow Flower Day",
+  "description": "Micro Proyecto realizado con la finalidad de conmemorar la entrega de flores amarillas aquí en mi natal México. Puede ser pequeño pero al no poder estar cerca de mi pareja, este fue mi pequeño presente y no, no fue cultivado a base de abono y lluvia, sino de código bien estructurado y mucho, si mucho CSS, ese fue el abono 🤭🤣🌻.",
+  "imageObj": "/assets/images/projects/yellow-flower-day/desktop-1.webp",
+  "hoverImageObj": "/assets/images/projects/yellow-flower-day/desktop-2.webp",
+  "mobileImages": [
+    "/assets/images/projects/yellow-flower-day/mobile-1.webp",
+    "/assets/images/projects/yellow-flower-day/mobile-2.webp"
+  ],
+  "tags": ["CSS", "UI/UX", "HTML"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/Yellow-Flower-Day",
+  "liveUrl": "https://kevinalexanderwebdev.github.io/Yellow-flower-day/",
+  "featured": false,
+  "status": "live",
+  "order": 7,
+  "titleKey": "proyectos.7",
+  "descriptionKey": "proyectosspan.7"
+}

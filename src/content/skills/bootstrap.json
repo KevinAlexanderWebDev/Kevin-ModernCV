@@ -1,0 +1,7 @@
+{
+  "name": "Bootstrap",
+  "category": "technical",
+  "icon": "bootstrap",
+  "order": 7,
+  "nameKey": "li.bootstrap"
+}

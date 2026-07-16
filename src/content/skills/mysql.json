@@ -1,0 +1,7 @@
+{
+  "name": "MySQL",
+  "category": "technical",
+  "icon": "mysql",
+  "order": 8,
+  "nameKey": "li.mysql"
+}

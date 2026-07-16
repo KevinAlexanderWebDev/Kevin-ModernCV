@@ -1,0 +1,10 @@
+{
+  "title": "Certificado Carta Pasante",
+  "issuer": "Instituto Tecnológico Superior de Naranjos",
+  "issueDate": "2025-03-15",
+  "imageObj": "/assets/images/certificates/carta-pasante.webp",
+  "thumbnailObj": "/assets/images/certificates/carta-pasante-thumb.webp",
+  "order": 4,
+  "titleKey": "nav.ct4",
+  "issuerKey": "nav.ct4_issuer"
+}

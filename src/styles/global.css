@@ -36,9 +36,9 @@
    estas variables cambiadas mediante la clase .dark en <html>
    ========================================= */
 html.dark {
-  --bg-primary: #09090b; /* Zinc 950, un negro muy elegante */
-  --bg-secondary: #18181b; /* Zinc 900 */
-  --bg-tertiary: #27272a; /* Zinc 800 */
+  --bg-primary: #09090b; 
+  --bg-secondary: #18181b; 
+  --bg-tertiary: #27272a; 
   
   --text-primary: #fafafa;
   --text-secondary: #a1a1aa;

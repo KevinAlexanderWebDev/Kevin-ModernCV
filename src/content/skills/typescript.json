@@ -1,0 +1,7 @@
+{
+  "name": "TypeScript",
+  "category": "technical",
+  "icon": "typescript",
+  "order": 3,
+  "nameKey": "li.typescript"
+}

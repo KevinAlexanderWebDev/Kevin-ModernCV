@@ -1,0 +1,7 @@
+{
+  "name": "Astro",
+  "category": "technical",
+  "icon": "astro",
+  "order": 15,
+  "nameKey": "li.astro"
+}

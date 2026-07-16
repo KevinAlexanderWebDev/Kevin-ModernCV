@@ -1,58 +1,77 @@
 ---
-import { Image } from 'astro:assets';
-import kevinImage from '../../assets/astro.svg';
+interface Props {
+  project: any; 
+  t: any;
+}
 
-const { project } = Astro.props;
-
-/**
- * MASTERCLASS: Project Card con efecto 2-imágenes
- * Implementar esto en HTML/CSS plano implicaba mucho JS si querías transiciones complejas
- * o anidación sucia. Astro y CSS moderno nos permiten:
- * 1. Usar <Image> localmente para optimizar la carga.
- * 2. Con CSS puro y grid, encimamos las imágenes y aplicamos opacidad en el hover.
- */
+const { project, t } = Astro.props;
+const data = project.data;
+const mobileImages = data.mobileImages || [];
 ---
 
 <article class="project-card">
   <div class="card-image-wrapper">
-    <!-- Imagen Principal -->
-     {project.data.imageObj ? (
-        <Image 
-          src={kevinImage} 
-          alt={project.data.title} 
-          width={600} 
-          height={400} 
-          class="img-primary" 
+    <div class="desktop-images">
+      {data.imageObj && (
+        <img
+          src={data.imageObj}
+          alt={data.title}
+          class="img-primary"
+          loading="lazy"
+          decoding="async"
+          width={600}
+          height={400}
         />
-        <!-- Imagen Secundaria (Demo, usamos la misma pero aplicamos un filtro para el efecto solicitado) 
-             En un caso real, tendrías un 'project.data.hoverImageObj' -->
-        <Image 
-          src={kevinImage} 
-          alt={`${project.data.title} alternativo`} 
-          width={600} 
-          height={400} 
-          class="img-secondary" 
+      )}
+      {data.hoverImageObj && (
+        <img
+          src={data.hoverImageObj}
+          alt={`${data.title} - vista alternativa`}
+          class="img-secondary"
+          loading="lazy"
+          decoding="async"
+          width={600}
+          height={400}
         />
-     ) : (
+      )}
+      {(!data.imageObj || !data.hoverImageObj) && (
         <div class="placeholder-img">Sin Imagen</div>
-     )}
-     
-     <div class="card-overlay">
-        <div class="links">
-          {project.data.repoUrl && <a href={project.data.repoUrl} target="_blank" rel="noopener noreferrer" class="social-btn">Código</a>}
-          {project.data.liveUrl && <a href={project.data.liveUrl} target="_blank" rel="noopener noreferrer" class="social-btn">Demo</a>}
-        </div>
-     </div>
+      )}
+    </div>
+
+    {mobileImages.length > 0 && (
+      <div class="mobile-slider" data-slider>
+        {mobileImages.map((img: string, i: number) => (
+          <img
+            src={img}
+            alt={`${data.title} - vista móvil ${i + 1}`}
+            width={400}
+            height={300}
+            class={`mobile-slide ${i === 0 ? 'active' : ''}`}
+            loading="lazy"
+            decoding="async"
+          />
+        ))}
+      </div>
+    )}
+
+    <div class="card-overlay">
+      <div class="links">
+        {data.repoUrl && <a href={data.repoUrl} target="_blank" rel="noopener noreferrer" class="social-btn">{t.see?.project?.replace('Ver ', '').replace('See ', 'Código') || 'Código'}</a>}
+        {data.liveUrl && <a href={data.liveUrl} target="_blank" rel="noopener noreferrer" class="social-btn">{t.see?.project?.replace('Ver ', '').replace('See ', 'Demo') || 'Demo'}</a>}
+      </div>
+    </div>
   </div>
 
   <div class="card-content">
-    <h3 class="card-title">{project.data.title}</h3>
-    <p class="card-description">{project.data.description}</p>
+    <h3 class="card-title">{data.title}</h3>
+    <p class="card-description">{data.description}</p>
     <div class="tags">
-      {project.data.tags.map((tag: string) => (
+      {data.tags.map((tag: string) => (
         <span class="tag">{tag}</span>
       ))}
     </div>
+    {data.status === 'wip' && <span class="status-badge wip">{t.proyectos?.activos?.replace('⚠️ ', '').replace('Projects in Progress', 'En Proceso') || '⚠️ En Proceso'}</span>}
   </div>
 </article>
 
@@ -82,7 +101,6 @@ const { project } = Astro.props;
     background: var(--bg-tertiary);
   }
 
-  /* Efecto de las 2 imágenes */
   .img-primary, .img-secondary {
     position: absolute;
     top: 0;
@@ -95,7 +113,6 @@ const { project } = Astro.props;
 
   .img-secondary {
     opacity: 0;
-    /* Efecto para diferenciarla si es la misma imagen (Escala y Sepia oscuro) */
     transform: scale(1.1);
     filter: brightness(0.7) contrast(1.2);
   }
@@ -183,4 +200,66 @@ const { project } = Astro.props;
     border-radius: 9999px;
     border: 1px solid var(--border-color);
   }
+
+  .desktop-images { display: block; }
+
+  .mobile-slider {
+    display: none;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+  }
+
+  .mobile-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .mobile-slide.active { opacity: 1; }
+
+  @media (max-width: 768px) {
+    .desktop-images { display: none; }
+    .mobile-slider { display: block; }
+  }
+
+  .status-badge { 
+    display: inline-block; 
+    margin-top: 1rem; 
+    padding: 0.25rem 0.75rem; 
+    font-size: 0.7rem; 
+    font-weight: 700; 
+    border-radius: 9999px; 
+    text-transform: uppercase; 
+    letter-spacing: 0.05em; 
+  }
+  .status-badge.wip { background: var(--accent-glow); color: var(--accent-blue); border: 1px solid var(--accent-blue); }
 </style>
+
+<script>
+  const setupMobileSlider = () => {
+    if (window.innerWidth > 768) return;
+    
+    const slider = document.querySelector('[data-slider]');
+    if (!slider) return;
+    
+    const slides = slider.querySelectorAll('.mobile-slide');
+    if (slides.length < 2) return;
+    
+    let index = 0;
+    setInterval(() => {
+      slides[index].classList.remove('active');
+      index = (index + 1) % slides.length;
+      slides[index].classList.add('active');
+    }, 3000);
+  };
+  
+  setupMobileSlider();
+  document.addEventListener('astro:page-load', setupMobileSlider);
+</script>

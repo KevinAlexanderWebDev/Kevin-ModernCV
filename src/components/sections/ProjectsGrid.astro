@@ -1,29 +1,53 @@
 ---
-import { getCollection } from 'astro:content';
 import ProjectCard from '../ui/ProjectCard.astro';
 
-// Obtenemos todos los proyectos de la colección, Astro valida tipos automáticamente aquí.
-const allProjects = await getCollection('projects');
-// Ordenamos los proyectos
-const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
+interface Props {
+  projects: any[];
+  t?: any;
+}
 
-/**
- * MASTERCLASS: CSS Grid vs Flexbox
- * El usuario pidió usar Grid. CSS Grid es bidimensional, ideal para layouts de cartas
- * donde queremos un número estricto de columnas que fluyan (Ej. 1 en mobile, 2 tablet, 3 desktop)
- * Flexbox puede hacer esto con flex-wrap, pero Grid mantiene alineaciones perfectas.
- */
+const { projects, t } = Astro.props;
+
+// Extract translation safely
+const translations = t ?? {};
+const baseTitle = t?.title ?? 'Trabajos Recientes';
+const words = baseTitle.split(' ');
+const lastWord = words.pop();
+const isHighlighted = lastWord?.toLowerCase().includes('recientes');
+const highlightClass = isHighlighted ? 'highlight' : '';
+const displayWords = words;
 ---
 
 <section id="projects" class="projects-section container">
   <div class="section-header">
-    <h2 class="section-title">Trabajos <span class="highlight">Recientes</span></h2>
+    <h2 class="section-title">
+      {displayWords.length > 0 && (
+        <span>
+          {displayWords.join(' ')}
+          {highlightClass ? (
+            <span class={highlightClass}>
+              {lastWord}
+            </span>  
+          ) : lastWord}
+        </span>
+      )}
+      
+      {!displayWords.length && (
+        <>
+          {lastWord ? (
+            <span class={highlightClass}>
+              {lastWord}
+            </span>
+          ) : {baseTitle}}
+        </>
+      )}
+    </h2>
     <p class="section-subtitle">Una selección de proyectos escalables construidos con tecnologías modernas.</p>
   </div>
 
   <div class="projects-grid">
     {projects.map(project => (
-      <ProjectCard project={project} />
+      <ProjectCard project={project} t={translations} />
     ))}
   </div>
 </section>

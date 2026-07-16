@@ -1,0 +1,7 @@
+{
+  "name": "HTML & CSS",
+  "category": "technical",
+  "icon": "html",
+  "order": 1,
+  "nameKey": "li.html"
+}

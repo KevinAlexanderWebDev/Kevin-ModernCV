@@ -1,0 +1,18 @@
+{
+  "title": "My Health App",
+  "description": "Proyecto desarrollado en conjunto con el departamento de investigación de mi universidad | Desarrollo de un dispositivo de monitoreo del ritmo cardíaco utilizando como corazón la placa Esp32 y el sensor de monitoreo cardíaco. El sistema cuenta con sus interfaces gráficas en escritorio y una vista en mobile gracias a su sincronización con una app de monitoreo.",
+  "imageObj": "/assets/images/projects/my-health-app/desktop-1.webp",
+  "hoverImageObj": "/assets/images/projects/my-health-app/desktop-2.webp",
+  "mobileImages": [
+    "/assets/images/projects/my-health-app/mobile-1.webp",
+    "/assets/images/projects/my-health-app/mobile-2.webp"
+  ],
+  "tags": ["CSS", "UI/UX", "HTML", "JS", "Bootstrap", "Esp32", "IA"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/my-health-app",
+  "liveUrl": "",
+  "featured": false,
+  "status": "live",
+  "order": 3,
+  "titleKey": "proyectos.3",
+  "descriptionKey": "proyectosspan.3"
+}

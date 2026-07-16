@@ -1,0 +1,18 @@
+{
+  "title": "Fit Coach Panel",
+  "description": "Aplicación de gestión para entrenadores personales. Panel de administración con control de clientes, rutinas, progreso y nutrición.",
+  "imageObj": "/assets/images/projects/paused-projects/fit-couch-app/fit-couch-desktop-1.webp",
+  "hoverImageObj": "/assets/images/projects/paused-projects/fit-couch-app/fit-couch-desktop-1.webp",
+  "mobileImages": [
+    "/assets/images/projects/paused-projects/fit-couch-app/fit-couch-mobile-1.webp",
+    "/assets/images/projects/paused-projects/fit-couch-app/fit-couch-mobile-2.webp"
+  ],
+  "tags": ["SCSS", "UI/UX", "HTML", "Angular", "Vercel", "TS", "IA"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/fit-coach",
+  "liveUrl": "",
+  "featured": false,
+  "status": "wip",
+  "order": 12,
+  "titleKey": "proyectos.activos",
+  "descriptionKey": "activosspan"
+}

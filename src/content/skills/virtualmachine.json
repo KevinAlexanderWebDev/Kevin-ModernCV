@@ -1,0 +1,7 @@
+{
+  "name": "Virtual Machine",
+  "category": "tools",
+  "icon": "virtualmachine",
+  "order": 30,
+  "nameKey": "li.vm"
+}
