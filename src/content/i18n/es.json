@@ -81,6 +81,8 @@
   "nav.ct7_issuer": "Instituto Tecnológico Superior de Naranjos",
   "contacto.title": "Contacto",
   "contacto.text": "Siempre estoy abierto a discutir trabajo de desarrollo web o oportunidades de asociación.",
+  "contacto.copy": "Copiar número",
+  "contacto.send": "Abrir WhatsApp",
   "form.name": "Nombre",
   "form.email": "Correo electrónico",
   "form.message": "Mensaje",

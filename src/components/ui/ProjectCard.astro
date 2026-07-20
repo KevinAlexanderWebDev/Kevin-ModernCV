@@ -1,5 +1,7 @@
 ---
 import IconWarning from './icons/IconWarning.astro';
+import { img } from '../../utils/images';
+import { tr } from '../../utils/i18n';
 
 interface Props {
   project: any; 
@@ -9,8 +11,8 @@ interface Props {
 const { project, t } = Astro.props;
 const data = project.data;
 const mobileImages = data.mobileImages || [];
-const title = data.titleKey ? (t[data.titleKey] ?? data.title) : data.title;
-const description = data.descriptionKey ? (t[data.descriptionKey] ?? data.description) : data.description;
+const title = data.titleKey ? tr(t, data.titleKey, data.title) : data.title;
+const description = data.descriptionKey ? tr(t, data.descriptionKey, data.description) : data.description;
 ---
 
 <article class="project-card">
@@ -18,7 +20,7 @@ const description = data.descriptionKey ? (t[data.descriptionKey] ?? data.descri
     <div class="desktop-images">
       {data.imageObj && (
         <img
-          src={data.imageObj}
+          src={img(data.imageObj)}
           alt={title}
           class="img-primary"
           loading="lazy"
@@ -29,7 +31,7 @@ const description = data.descriptionKey ? (t[data.descriptionKey] ?? data.descri
       )}
       {data.hoverImageObj && (
         <img
-          src={data.hoverImageObj}
+          src={img(data.hoverImageObj)}
           alt={`${title} - vista alternativa`}
           class="img-secondary"
           loading="lazy"
@@ -45,9 +47,9 @@ const description = data.descriptionKey ? (t[data.descriptionKey] ?? data.descri
 
     {mobileImages.length > 0 && (
       <div class="mobile-slider" data-slider>
-        {mobileImages.map((img: string, i: number) => (
+        {mobileImages.map((mobileImg: string, i: number) => (
           <img
-            src={img}
+            src={img(mobileImg)}
             alt={`${title} - vista móvil ${i + 1}`}
             width={400}
             height={300}

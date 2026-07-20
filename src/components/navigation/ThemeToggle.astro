@@ -29,20 +29,12 @@
   :global(:not(.dark)) .moon-icon { display: block; }
 </style>
 
-<script>  
-  const setupThemeToggle = () => {
-    const btn = document.getElementById('theme-toggle');
-    
-    // Es buena práctica verificar si el botón existe
-    if(btn) {
-      btn.addEventListener('click', () => {
-        const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      });
+<script>
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target instanceof Element && target.closest('#theme-toggle')) {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
     }
-  };
-
-  setupThemeToggle();
-
-  document.addEventListener('astro:page-load', setupThemeToggle);
+  });
 </script>

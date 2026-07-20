@@ -1,6 +1,7 @@
 ---
 import IconTools from '../ui/icons/IconTools.astro';
 import IconLightbulb from '../ui/icons/IconLightbulb.astro';
+import { tr } from '../../utils/i18n';
 
 interface Props {
   personal: any;
@@ -23,7 +24,7 @@ const skillsByCategory = {
       </h2>
       {personal.bio.map((paragraph:string, i:number) => {
         const bioKey = personal.bioKeys?.[i];
-        const text = bioKey ? (t[bioKey] ?? paragraph) : paragraph;
+        const text = bioKey ? tr(t, bioKey, paragraph) : paragraph;
         return <p>{text}</p>;
       })}
     </div>

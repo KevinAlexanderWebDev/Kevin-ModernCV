@@ -54,12 +54,12 @@ const description = personalData.tagline;
 
 <Layout title={title} description={description} lang="es">
     <Navbar currentLang="es" t={t} />
-    <Hero personal={personalData} t={t} />
+    <Hero personal={personalData} t={t} currentLang="es" />
     <About personal={personalData} skills={skills} t={t} />
     <Inspiration t={t} />
     <ProjectsGrid projects={projects} t={t} />
-    <CertificatesGrid certificates={certificates} t={t} />
-    <Footer personal={personalData} t={t} />
-    <WhatsAppBtn phone={personalData.social.whatsapp ?? '528332875807'} />
+    <CertificatesGrid certificates={certificates} t={t} currentLang="es" />
+    <Footer personal={personalData} t={t} currentLang="es" />
+    <WhatsAppBtn phone={personalData.social.whatsapp ?? '528332875807'} t={t} />
     <ScrolltoTop />
 </Layout>

@@ -1,9 +1,10 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+import { tr } from '../../utils/i18n';
 
 interface Props {
   currentLang: 'es' | 'en';
-  t: Record<string, string>; //t.nav <--
+  t: Record<string, any>;
 }
 
 const {currentLang, t} = Astro.props;
@@ -19,7 +20,7 @@ const toggleLabel = currentLang === 'es' ? 'EN' : 'ES';
     </a>
 
     <!-- Botón Hamburguesa para Mobile -->
-    <button class="mobile-menu-btn" aria-label={t['nav.menu'] || 'Abrir menú'} id="mobile-menu-btn">
+    <button class="mobile-menu-btn" aria-label={tr(t, 'nav.menu', 'Abrir menú')} id="mobile-menu-btn">
       <svg
         width="24"
         height="24"
@@ -38,14 +39,14 @@ const toggleLabel = currentLang === 'es' ? 'EN' : 'ES';
 
     <nav class="nav-links" id="nav-links">
        <ul class="nav-list">
-        <li><a href={`${base}/${currentLang}/#about`} class="nav-item">{t['nav.about'] || 'Sobre mí'}</a></li>
-        <li><a href={`${base}/${currentLang}/#projects`} class="nav-item">{t['nav.projects'] || 'Proyectos'}</a></li>
-        <li><a href={`${base}/${currentLang}/#certificates`} class="nav-item">{t['nav.certificates'] || 'Certificados'}</a></li>
-        <li><a href={`${base}/${currentLang}/#contact`} class="nav-item">{t['nav.contact'] || 'Contacto'}</a></li>
+        <li><a href={`${base}/${currentLang}/#about`} class="nav-item">{tr(t, 'nav.about', 'Sobre mí')}</a></li>
+        <li><a href={`${base}/${currentLang}/#projects`} class="nav-item">{tr(t, 'nav.projects', 'Proyectos')}</a></li>
+        <li><a href={`${base}/${currentLang}/#certificates`} class="nav-item">{tr(t, 'nav.certificates', 'Certificados')}</a></li>
+        <li><a href={`${base}/${currentLang}/#contact`} class="nav-item">{tr(t, 'nav.contact', 'Contacto')}</a></li>
       </ul>
 
       <div class="nav-actions">
-        <a href={togglePath} class="lang-toggle" aria-label={t['nav.switchLang'] || 'Cambiar Idioma'}>
+        <a href={togglePath} class="lang-toggle" aria-label={tr(t, 'nav.switchLang', 'Cambiar Idioma')}>
           {toggleLabel}
         </a>
         <ThemeToggle />

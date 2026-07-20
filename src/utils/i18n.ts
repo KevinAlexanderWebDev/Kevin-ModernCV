@@ -24,3 +24,8 @@ export function nestKeys(obj: Record<string, any>): Record<string, any> {
   }
   return result;
 }
+
+export function tr(t: Record<string, any>, key: string, fallback?: string): string {
+  const result = key.split('.').reduce((obj, part) => obj?.[part], t);
+  return (typeof result === 'string' ? result : (fallback ?? key));
+}

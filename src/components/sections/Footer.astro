@@ -2,14 +2,14 @@
 interface Props {
   personal: any;
   t: any;
+  currentLang?: string;
 }
 
-const { personal, t } = Astro.props;
+const { personal, t, currentLang = 'es' } = Astro.props;
 
 // Defensive: ensure personal and t are objects with safe defaults
 const p = personal ?? {};
 const translations = t ?? {};
-const currentLang = Astro.url.pathname.split('/')[1] || 'es';
 
 // Extract translation values safely
 const contactoTitle = translations.contacto?.title ?? '¿Empezamos un proyecto?';
@@ -37,23 +37,34 @@ const thankYouUrl = `${basePath}/${currentLang}/gracias/`;
         <div class="form-group">
           <label for="nombre">{formName}</label>
           <input id="nombre" name="name" type="text" placeholder={formName} required aria-required="true" />
+          <span class="form-error" aria-live="polite"></span>
         </div>
         
         <div class="form-group">
           <label for="correo">{formEmail}</label>
           <input id="correo" name="email" type="email" placeholder={formEmail} required aria-required="true" />
+          <span class="form-error" aria-live="polite"></span>
         </div>
         
         <div class="form-group">
           <label for="mensaje">{formMessage}</label>
           <textarea id="mensaje" name="message" placeholder={formMessage} rows="4" required aria-required="true"></textarea>
+          <span class="form-error" aria-live="polite"></span>
         </div>
         
         <button 
           type="submit" 
           class="btn btn-primary contact-btn"
+          id="contact-submit-btn"
           aria-label={translations.form?.submit ?? 'Enviar'}>
-          {translations.form?.submit ?? 'Enviar'}
+          <span class="btn-text">{translations.form?.submit ?? 'Enviar'}</span>
+          <span class="btn-spinner" style="display:none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" stroke-dasharray="31.4 31.4" stroke-linecap="round">
+                <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/>
+              </circle>
+            </svg>
+          </span>
           <svg 
             width="20" 
             height="20" 
@@ -63,7 +74,8 @@ const thankYouUrl = `${basePath}/${currentLang}/gracias/`;
             stroke-width="2" 
             stroke-linecap="round" 
             stroke-linejoin="round"
-            aria-hidden="true">
+            aria-hidden="true"
+            class="btn-icon">
             <line x1="22" y1="2" x2="11" y2="13"></line>
             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
           </svg>
@@ -262,24 +274,50 @@ const thankYouUrl = `${basePath}/${currentLang}/gracias/`;
   .form-group input,
   .form-group textarea {
     padding: 0.75rem 1rem;
-    border: 1px solid #cccccc; 
+    border: 1px solid var(--border-color, #e2e8f0);
     border-radius: 6px;
     font-size: 1rem;
-    color: #222222; 
-    background-color: #ffffff; 
+    color: var(--text-primary, #0f172a);
+    background-color: var(--bg-primary, #ffffff);
     transition: border-color 0.3s, box-shadow 0.3s;
   }
 
   .form-group input::placeholder,
   .form-group textarea::placeholder {
-    color: #999999;
+    color: var(--text-muted, #94a3b8);
   }
 
   .form-group input:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: #6c63ff; /* Violeta (color principal) */
-    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+    border-color: var(--accent-primary, #7c3aed);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-primary, #7c3aed) 20%, transparent);
+  }
+
+  .form-group.error input,
+  .form-group.error textarea {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+  }
+
+  .form-error {
+    display: none;
+    font-size: 0.8rem;
+    color: #ef4444;
+    margin-top: 0.3rem;
+  }
+
+  .form-group.error .form-error {
+    display: block;
+  }
+
+  .contact-btn.loading .btn-text,
+  .contact-btn.loading .btn-icon {
+    display: none;
+  }
+
+  .contact-btn.loading .btn-spinner {
+    display: inline-flex !important;
   }
 
   .social-links {
@@ -311,13 +349,93 @@ const thankYouUrl = `${basePath}/${currentLang}/gracias/`;
 
 <script>
   const form = document.querySelector('.form-contacto');
-  form?.addEventListener('submit', (e) => {
-    const name = form?.querySelector<HTMLInputElement>('#nombre');
-    const email = form?.querySelector<HTMLInputElement>('#correo');
-    const message = form?.querySelector<HTMLTextAreaElement>('#mensaje');
-    if (!name?.value?.trim() || !email?.value.trim() || !message?.value.trim()) {
-      e.preventDefault();
-      alert('Por favor, completa todos los campos');
+  const submitBtn = document.getElementById('contact-submit-btn');
+
+  interface FormField {
+    el: HTMLInputElement | HTMLTextAreaElement | null;
+    name: string;
+  }
+
+  const fields: FormField[] = [
+    { el: document.getElementById('nombre') as HTMLInputElement, name: 'name' },
+    { el: document.getElementById('correo') as HTMLInputElement, name: 'email' },
+    { el: document.getElementById('mensaje') as HTMLTextAreaElement, name: 'message' },
+  ];
+
+  function getGroup(field: HTMLElement): HTMLElement | null {
+    return field.closest('.form-group');
+  }
+
+  function getErrorSpan(field: HTMLElement): HTMLElement | null {
+    const group = getGroup(field);
+    return group ? group.querySelector('.form-error') : null;
+  }
+
+  function clearErrors(): void {
+    fields.forEach(({ el }) => {
+      if (!el) return;
+      const group = getGroup(el);
+      if (group) group.classList.remove('error');
+      const errorSpan = getErrorSpan(el);
+      if (errorSpan) errorSpan.textContent = '';
+    });
+  }
+
+  function showError(el: HTMLElement, message: string): void {
+    const group = getGroup(el);
+    if (group) group.classList.add('error');
+    const errorSpan = getErrorSpan(el);
+    if (errorSpan) errorSpan.textContent = message;
+  }
+
+  function validateField(el: HTMLInputElement | HTMLTextAreaElement | null): boolean {
+    if (!el) return true;
+    const value = el.value.trim();
+    if (!value) {
+      showError(el, 'Este campo es obligatorio');
+      return false;
     }
+    if (el instanceof HTMLInputElement && el.type === 'email' && value) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        showError(el, 'Correo electrónico no válido');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  fields.forEach(({ el }) => {
+    if (!el) return;
+    el.addEventListener('blur', () => {
+      if (el.value.trim()) {
+        const group = getGroup(el);
+        if (group) group.classList.remove('error');
+        const errorSpan = getErrorSpan(el);
+        if (errorSpan) errorSpan.textContent = '';
+      }
+    });
+  });
+
+  form?.addEventListener('submit', (e) => {
+    clearErrors();
+    let valid = true;
+
+    fields.forEach(({ el }) => {
+      if (!validateField(el)) valid = false;
+    });
+
+    if (!valid) {
+      e.preventDefault();
+      const firstError = fields.find(({ el }) => {
+        if (!el) return false;
+        const group = getGroup(el);
+        return group ? group.classList.contains('error') : false;
+      });
+      if (firstError?.el) firstError.el.focus();
+      return;
+    }
+
+    if (submitBtn) submitBtn.classList.add('loading');
   });
 </script>

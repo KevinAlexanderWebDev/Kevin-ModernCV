@@ -1,24 +1,22 @@
 ---
 import IconPin from '../ui/icons/IconPin.astro';
+import { img } from '../../utils/images';
+import { tr } from '../../utils/i18n';
 
 interface Props {
   personal: any;
-  t: any; 
+  t: any;
+  currentLang?: string;
 }
 
-const {personal, t} = Astro.props;
+const {personal, t, currentLang = 'es'} = Astro.props;
 
 const profileImg = personal?.photo;
-
-const profileSrcSet = profileImg 
-  ? `${profileImg.replace('.webp', '-400w.webp')} 400w, ${profileImg.replace('.webp', '-800w.webp')} 800w, ${profileImg.replace('.webp', '-1200w.webp')} 1200w`
-  : undefined;
-const profileSizes = '(max-width: 768px) 100vw, 400px';
 
 const tPresentation = t.about?.presentation ?? '📌 Presentación';
 const tProjectsTitle = t.proyectos?.cta ?? 'Ver Proyectos';
 const tContactTitle = t.contacto?.title ?? 'Contactar';
-const heroTagline = personal.taglineKey ? (t[personal.taglineKey] ?? personal.tagline) : personal.tagline;
+const heroTagline = personal.taglineKey ? tr(t, personal.taglineKey, personal.tagline) : personal.tagline;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -35,10 +33,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <p class="subtitle">{heroTagline}</p>
       
       <div class="cta-group">
-        <a href={`${base}/${Astro.url.pathname.split('/')[1]}/#projects`} class="btn btn-primary">
+        <a href={`${base}/${currentLang}/#projects`} class="btn btn-primary">
           {tProjectsTitle}
         </a>
-        <a href={`${base}/${Astro.url.pathname.split('/')[1]}/#contact`} class="btn btn-secondary">
+        <a href={`${base}/${currentLang}/#contact`} class="btn btn-secondary">
           {tContactTitle}
         </a>
       </div>
@@ -47,18 +45,19 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <div class="hero-image-wrapper">
       <div class="glow-effect"></div>
       {profileImg && (
-        <img
-          src={profileImg}
-          alt={personal?.name ?? 'Foto de perfil'}
-          srcset={profileSrcSet}
-          sizes={profileSizes}
-          width={400}
-          height={400}
-          class="profile-img"
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-        />
+        <picture>
+          <source srcset={img(profileImg.replace('.webp', '.avif'))} type="image/avif" />
+          <img
+            src={img(profileImg)}
+            alt={personal?.name ?? 'Foto de perfil'}
+            width={400}
+            height={400}
+            class="profile-img"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
       )}
     </div>
   </div>

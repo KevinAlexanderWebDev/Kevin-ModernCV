@@ -1,12 +1,15 @@
 ---
 import CertificateModal from '../ui/CertificateModal.astro';
+import { img } from '../../utils/images';
+import { tr } from '../../utils/i18n';
 
 interface Props {
   certificates: any[];
   t?: any;
+  currentLang?: string;
 }
 
-const { certificates, t } = Astro.props;
+const { certificates, t, currentLang = 'es' } = Astro.props;
 
 // Extract certificate data with public paths
 const certsData = certificates.map(cert => {
@@ -15,8 +18,8 @@ const certsData = certificates.map(cert => {
   const issuerKey = cd.issuerKey;
   return {
     id: cert.id,
-    title: titleKey ? (t[titleKey] ?? cd.title ?? 'Certificado') : (cd.title ?? 'Certificado'),
-    issuer: issuerKey ? (t[issuerKey] ?? cd.issuer ?? '') : (cd.issuer ?? ''),
+    title: titleKey ? tr(t, titleKey, cd.title ?? 'Certificado') : (cd.title ?? 'Certificado'),
+    issuer: issuerKey ? tr(t, issuerKey, cd.issuer ?? '') : (cd.issuer ?? ''),
     issueDate: cd.issueDate ?? '',
     thumbnailPath: cd.thumbnailObj,
     imagePath: cd.imageObj,
@@ -24,7 +27,6 @@ const certsData = certificates.map(cert => {
   };
 });
 
-const currentLang = Astro.url.pathname.split('/')[1] || 'es';
 const dateLocale = currentLang === 'en' ? 'en-US' : 'es-ES';
 const certsTitle = t?.nav?.ct ?? 'Certificaciones';
 ---
@@ -40,7 +42,7 @@ const certsTitle = t?.nav?.ct ?? 'Certificaciones';
         {cert.thumbnailPath && (
           <div class="cert-thumb-wrapper">
             <img
-              src={cert.thumbnailPath}
+              src={img(cert.thumbnailPath)}
               alt={cert.title}
               width={300}
               height={200}
@@ -142,6 +144,9 @@ const certsTitle = t?.nav?.ct ?? 'Certificaciones';
 </style>
 
 <script define:vars={{ certsData, dateLocale }}>
+  const BASE_URL = import.meta.env.BASE_URL.replace(/\/$/, '');
+  const img = (p) => p && p.startsWith('/') ? BASE_URL + p : p;
+
   const modal = document.getElementById('cert-modal');
   const modalBody = modal?.querySelector('.modal-body');
 
@@ -152,7 +157,7 @@ const certsTitle = t?.nav?.ct ?? 'Certificaciones';
     if (!data || !modal || !modalBody) return;
 
     modalBody.innerHTML = `
-      ${data.imagePath ? `<img src="${data.imagePath}" alt="${data.title}" class="modal-image" loading="eager">` : ''}
+      ${data.imagePath ? `<img src="${img(data.imagePath)}" alt="${data.title}" class="modal-image" loading="eager">` : ''}
       <div class="modal-info">
         <h3 class="modal-title">${data.title}</h3>
         <p class="modal-issuer">${data.issuer}</p>

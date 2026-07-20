@@ -1,4 +1,6 @@
 ---
+import { img } from '../../utils/images';
+
 interface InspirationItem {
     title: string, 
     text: string, 
@@ -32,7 +34,7 @@ const inspirations: InspirationItem[] = itemsObj ? Object.values(itemsObj) : [
         {inspirations.map((item) => (
             <article class="inspiration-card">
                 <div class="inspiration-img-wrapper">
-                    <img src={item.photo} alt={item.title} width={400} height={300} class="inspiration-img" loading="lazy" decoding="async" />
+                    <img src={img(item.photo)} alt={item.title} width={400} height={300} class="inspiration-img" loading="lazy" decoding="async" />
                 </div>
                 <div class="inspiration-content">
                     <h3 class="inspiration-title">{item.title}</h3>

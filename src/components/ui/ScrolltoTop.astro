@@ -115,33 +115,22 @@
 
 <script>
   const THRESHOLD = 400;
-  const btn = document.getElementById('scroll-to-top');
-  
-  if (btn) {
-    const toggleVisibility = () => {
-    if (window.scrollY > THRESHOLD) {
-      btn.classList.add('show');
-    } else {
-      btn.classList.remove('show');
-    }
-  };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const toggleVisibility = () => {
+    const btn = document.getElementById('scroll-to-top');
+    if (!btn) return;
+    btn.classList.toggle('show', window.scrollY > THRESHOLD);
   };
 
   window.addEventListener('scroll', toggleVisibility, { passive: true });
-  btn.addEventListener('click', scrollToTop);
-  
-  toggleVisibility();
 
-  document.addEventListener('astro:page-load', () => {
-    toggleVisibility();
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target instanceof Element && target.closest('#scroll-to-top')) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   });
 
-  // Limpieza (opcional, para SPAs reales)
-  // document.addEventListener('astro:before-preparation', () => {
-  //   window.removeEventListener('scroll', toggleVisibility);
-  // });
-  }
+  toggleVisibility();
+  document.addEventListener('astro:page-load', toggleVisibility);
 </script>
