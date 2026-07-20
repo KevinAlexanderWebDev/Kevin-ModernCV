@@ -30,6 +30,12 @@ jobs:
         with:
             path: ${{ env.BUILD_PATH }}
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22 # Forzamos Node 22 (LTS) o puedes usar '24'
+          cache: 'npm' 
+
   deploy:
     environment:
       name: github-pages
@@ -41,3 +47,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
