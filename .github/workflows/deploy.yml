@@ -24,18 +24,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Install, build, and upload your site
-        uses: withastro/action@v2
-        with:
-        path: ${{ env.BUILD_PATH }}
-        package-manager: npm        # or 'pnpm', 'yarn', 'bun' — choose the one you use
-        node-version: 22.x         # use 18.x or 20.x depending on your project
-      
+                
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:
             path: ${{ env.BUILD_PATH }}
+            package-manager: npm      
+            node-version: 22.x 
 
   deploy:
     environment:
