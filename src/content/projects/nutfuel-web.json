@@ -1,11 +1,11 @@
 {
   "title": "Ecosistema NutFuel - Web",
   "description": "Aplicación web e-commerce con enfoque adaptativo (Mobile-First) desarrollada con tecnologías ASP.NET Core MVC.",
-  "imageObj": "/assets/images/projects/yellow-flower-day/desktop-1.webp",
-  "hoverImageObj": "/assets/images/projects/yellow-flower-day/desktop-2.webp",
+  "imageObj": "/assets/images/projects/nutfuel-web/nutfuel-web-01.webp",
+  "hoverImageObj": "/assets/images/projects/nutfuel-web/nutfuel-web-02.webp",
   "mobileImages": [
-    "/assets/images/projects/yellow-flower-day/mobile-1.webp",
-    "/assets/images/projects/yellow-flower-day/mobile-2.webp"
+    "/assets/images/projects/nuftuel-web/mobile-01.webp",
+    "/assets/images/projects/nutfuel-web/mobile-02.webp"
   ],
   "tags": ["#C", "Blazor", "Asp.NetCore", "MVC", "Api RestFul", "SQL Server"],
   "repoUrl": "https://github.com/KevinAlexanderWebDev/Yellow-Flower-Day",

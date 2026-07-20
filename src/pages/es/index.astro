@@ -10,21 +10,26 @@ import WhatsAppBtn from '../../components/ui/WhatsAppBtn.astro';
 import ScrolltoTop from '@/components/ui/ScrolltoTop.astro';
 import { getCollection, getEntry } from 'astro:content';
 import { nestKeys } from '../../utils/i18n';
+import Inspiration from '@/components/sections/Inspiration.astro';
 
-const [projects, certificates, skills, personal, translations] = await Promise.all([
+const [projects, certificates, skills, personal] = await Promise.all([
   getCollection('projects', ({ data }) => data.status !== 'archived'),
   getCollection('certificates'),
   getCollection('skills'),
   getEntry('personal', 'main'),
-  getEntry('translations', 'es'),
 ]);
+
+let t = {};
+try {
+  const translationsEntry = await getEntry('translations', 'es');
+  t = nestKeys(translationsEntry?.data ?? {});
+} catch {
+  t = {};
+}
 
 projects.sort((a, b) => a.data.order - b.data.order);
 certificates.sort((a, b) => a.data.order - b.data.order);
 skills.sort((a, b) => a.data.order - b.data.order);
-
-// getEntry returns the entry directly with .data being the JSON object
-const t = nestKeys(translations?.data ?? {});
 
 // Defensive: ensure personal has data
 const personalData = personal?.data ?? {
@@ -51,6 +56,7 @@ const description = personalData.tagline;
     <Navbar currentLang="es" t={t} />
     <Hero personal={personalData} t={t} />
     <About personal={personalData} skills={skills} t={t} />
+    <Inspiration t={t} />
     <ProjectsGrid projects={projects} t={t} />
     <CertificatesGrid certificates={certificates} t={t} />
     <Footer personal={personalData} t={t} />

@@ -7,14 +7,15 @@ interface Props {
 }
 
 const {currentLang, t} = Astro.props;
-const togglePath = currentLang === 'es' ? '/en/' : '/es/';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const togglePath = currentLang === 'es' ? `${base}/en/` : `${base}/es/`;
 const toggleLabel = currentLang === 'es' ? 'EN' : 'ES';
 ---
 
 <header class="header">
   <div class="container nav-wrapper">
-    <a href={`/${currentLang}/`}} class="logo" aria-label="Ir a inicio">
-      <span>{`<Dev />`}</span>
+    <a href={`${base}/${currentLang}/`} class="logo" aria-label="Ir a inicio">
+      <span>{`<Kevin Dev />`}</span>
     </a>
 
     <!-- Botón Hamburguesa para Mobile -->
@@ -37,10 +38,10 @@ const toggleLabel = currentLang === 'es' ? 'EN' : 'ES';
 
     <nav class="nav-links" id="nav-links">
        <ul class="nav-list">
-        <li><a href={`/${currentLang}/#about`} class="nav-item">{t['nav.about'] || 'Sobre mí'}</a></li>
-        <li><a href={`/${currentLang}/#projects`} class="nav-item">{t['nav.projects'] || 'Proyectos'}</a></li>
-        <li><a href={`/${currentLang}/#certificates`} class="nav-item">{t['nav.certificates'] || 'Certificados'}</a></li>
-        <li><a href={`/${currentLang}/#contact`} class="nav-item">{t['nav.contact'] || 'Contacto'}</a></li>
+        <li><a href={`${base}/${currentLang}/#about`} class="nav-item">{t['nav.about'] || 'Sobre mí'}</a></li>
+        <li><a href={`${base}/${currentLang}/#projects`} class="nav-item">{t['nav.projects'] || 'Proyectos'}</a></li>
+        <li><a href={`${base}/${currentLang}/#certificates`} class="nav-item">{t['nav.certificates'] || 'Certificados'}</a></li>
+        <li><a href={`${base}/${currentLang}/#contact`} class="nav-item">{t['nav.contact'] || 'Contacto'}</a></li>
       </ul>
 
       <div class="nav-actions">
@@ -84,7 +85,7 @@ const toggleLabel = currentLang === 'es' ? 'EN' : 'ES';
     background: linear-gradient(
       135deg,
       var(--text-primary),
-      var(--accent-blue)
+      var(--accent-primary)
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -129,7 +130,7 @@ const toggleLabel = currentLang === 'es' ? 'EN' : 'ES';
   }
 
   .lang-toggle:hover {
-    background: var(--accent-blue);
+    background: var(--accent-primary);
     color: #fff;
   }
 
@@ -154,7 +155,7 @@ const toggleLabel = currentLang === 'es' ? 'EN' : 'ES';
       padding: 1rem 0;
       border-bottom: 1px solid var(--border-color);
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      /* Oculto por defecto en mobile usando max-height en lugar de display para permitir animaciones */
+      z-index: 100;
       clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
       transition: clip-path 0.3s ease-out;
     }
@@ -182,21 +183,45 @@ const toggleLabel = currentLang === 'es' ? 'EN' : 'ES';
 </style>
 
 <script>
+  let currentController: AbortController | null = null;
+
   const setupMobileMenu = () => {
-    const btn = document.getElementById("mobile-menu-btn");
-    const nav = document.getElementById("nav-links");
+    const btn = document.getElementById("mobile-menu-btn") as HTMLElement | null;
+    const nav = document.getElementById("nav-links") as HTMLElement | null;
 
-    if (btn && nav) {
-      const toggleMenu = () => nav.classList.toggle("active");
-      btn.addEventListener("click", toggleMenu);
+    if (!btn || !nav) return;
 
-      const links = nav.querySelectorAll(".nav-item");
-      links.forEach((link) => {
-        link.addEventListener("click", () => {
-          nav.classList.remove("active");
-        });
-      });
-    }
+    currentController?.abort();
+    const ac = new AbortController();
+    currentController = ac;
+    const { signal } = ac;
+
+    const toggleMenu = () => {
+      const isOpen = nav.classList.toggle("active");
+      btn.setAttribute("aria-expanded", String(isOpen));
+    };
+
+    const closeMenu = () => {
+      nav.classList.remove("active");
+      btn.setAttribute("aria-expanded", "false");
+    };
+
+    btn.addEventListener("click", toggleMenu, { signal });
+
+    nav.querySelectorAll(".nav-item").forEach((link) => {
+      link.addEventListener("click", closeMenu, { signal });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    }, { signal });
+
+    document.addEventListener("click", (e: MouseEvent) => {
+      const target = e.target as Node | null;
+      if (nav.classList.contains("active") && target && !nav.contains(target) && !btn.contains(target)) {
+        closeMenu();
+      }
+    }, { signal });
   };
 
   setupMobileMenu();

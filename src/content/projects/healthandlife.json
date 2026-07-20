@@ -1,0 +1,18 @@
+{
+  "title": "Health and Life Multiplatform",
+  "description": "Aplicación móvil multiplataforma diseñada para la monitorización de datos somatométricos y la introducción y búsqueda dinámica de datos y productos en el registro de calorías..",
+  "imageObj": "/assets/images/projects/healthandlife/healthandlife-01.webp",
+  "hoverImageObj": "/assets/images/projects/healthandlife/healthandlife-02.webp",
+  "mobileImages": [
+    "/assets/images/projects/healthandlife/healthandlife-03.webp",
+    "/assets/images/projects/healthandlife/healthandlife-04.webp"
+  ],
+  "tags": ["#C", "Razor Pages", ".Net", "MVVM"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/HealthAndLife-App",
+  "liveUrl": "",
+  "featured": false,
+  "status": "live",
+  "order": 19,
+  "titleKey": "proyectos.19",
+  "descriptionKey": "proyectosspan.19"
+}

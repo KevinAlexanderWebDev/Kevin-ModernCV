@@ -9,10 +9,10 @@ import Footer from '../../components/sections/Footer.astro';
 import WhatsAppBtn from '../../components/ui/WhatsAppBtn.astro';
 import ScrolltoTop from '@/components/ui/ScrolltoTop.astro';
 import { nestKeys } from '../../utils/i18n';
+import Inspiration from '@/components/sections/Inspiration.astro';
 
 import { getCollection, getEntry } from 'astro:content';
 
-// Tipos para tipado seguro
 interface PersonalData {
   name: string;
   title: string;
@@ -76,6 +76,7 @@ const description = personalData.tagline ?? 'Professional Portfolio';
     <Navbar currentLang="en" t={t} />
     <Hero personal={personalData} t={t} />
     <About personal={personalData} skills={skills} t={t} />
+    <Inspiration t={t} />
     <ProjectsGrid projects={projects} t={t} />
     <CertificatesGrid certificates={certificates} t={t} />
     <Footer personal={personalData} t={t} />

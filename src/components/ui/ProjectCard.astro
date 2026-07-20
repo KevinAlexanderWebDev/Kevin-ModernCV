@@ -1,4 +1,6 @@
 ---
+import IconWarning from './icons/IconWarning.astro';
+
 interface Props {
   project: any; 
   t: any;
@@ -7,6 +9,8 @@ interface Props {
 const { project, t } = Astro.props;
 const data = project.data;
 const mobileImages = data.mobileImages || [];
+const title = data.titleKey ? (t[data.titleKey] ?? data.title) : data.title;
+const description = data.descriptionKey ? (t[data.descriptionKey] ?? data.description) : data.description;
 ---
 
 <article class="project-card">
@@ -15,7 +19,7 @@ const mobileImages = data.mobileImages || [];
       {data.imageObj && (
         <img
           src={data.imageObj}
-          alt={data.title}
+          alt={title}
           class="img-primary"
           loading="lazy"
           decoding="async"
@@ -26,7 +30,7 @@ const mobileImages = data.mobileImages || [];
       {data.hoverImageObj && (
         <img
           src={data.hoverImageObj}
-          alt={`${data.title} - vista alternativa`}
+          alt={`${title} - vista alternativa`}
           class="img-secondary"
           loading="lazy"
           decoding="async"
@@ -44,7 +48,7 @@ const mobileImages = data.mobileImages || [];
         {mobileImages.map((img: string, i: number) => (
           <img
             src={img}
-            alt={`${data.title} - vista móvil ${i + 1}`}
+            alt={`${title} - vista móvil ${i + 1}`}
             width={400}
             height={300}
             class={`mobile-slide ${i === 0 ? 'active' : ''}`}
@@ -64,14 +68,14 @@ const mobileImages = data.mobileImages || [];
   </div>
 
   <div class="card-content">
-    <h3 class="card-title">{data.title}</h3>
-    <p class="card-description">{data.description}</p>
+    <h3 class="card-title">{title}</h3>
+    <p class="card-description">{description}</p>
     <div class="tags">
       {data.tags.map((tag: string) => (
         <span class="tag">{tag}</span>
       ))}
     </div>
-    {data.status === 'wip' && <span class="status-badge wip">{t.proyectos?.activos?.replace('⚠️ ', '').replace('Projects in Progress', 'En Proceso') || '⚠️ En Proceso'}</span>}
+    {data.status === 'wip' && <span class="status-badge wip"><IconWarning size={14} class="icon-inline" /> {t.proyectos?.activos || 'En Proceso'}</span>}
   </div>
 </article>
 
@@ -90,7 +94,7 @@ const mobileImages = data.mobileImages || [];
   .project-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    border-color: var(--accent-blue);
+    border-color: var(--accent-primary);
   }
 
   .card-image-wrapper {
@@ -155,7 +159,7 @@ const mobileImages = data.mobileImages || [];
 
   .social-btn {
     padding: 0.5rem 1.2rem;
-    background: var(--accent-blue);
+    background: var(--accent-primary);
     color: white;
     font-weight: 600;
     border-radius: var(--radius-sm);
@@ -163,7 +167,7 @@ const mobileImages = data.mobileImages || [];
   }
 
   .social-btn:hover {
-    background: #1d4ed8;
+    background: #5b21b6;
   }
 
   .card-content {
@@ -239,7 +243,7 @@ const mobileImages = data.mobileImages || [];
     text-transform: uppercase; 
     letter-spacing: 0.05em; 
   }
-  .status-badge.wip { background: var(--accent-glow); color: var(--accent-blue); border: 1px solid var(--accent-blue); }
+  .status-badge.wip { background: var(--accent-glow); color: var(--accent-primary); border: 1px solid var(--accent-primary); }
 </style>
 
 <script>

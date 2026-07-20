@@ -8,7 +8,7 @@
     "/assets/images/projects/for-my-girl/mobile-2.webp"
   ],
   "tags": ["First-mobile", "CSS", "UI/UX", "HTML", "TS", "Angular", "Standalone components", "Node.js", "Express", "Render for back end", "Vercel for deployment", "MongoDB for data base", "IA"],
-  "repoUrl": "https://github.com/KevinAlexanderWebDev/for-my-girl",
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/for-my-girl-angular-front",
   "liveUrl": "https://for-my-girl-angular-front.vercel.app/",
   "featured": false,
   "status": "live",

@@ -1,6 +1,5 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
-
 /* 
   MASTERCLASS: APIs de Contenido (Content Layer vs Legacy)
   Astro 5+ introdujo la "Content Layer API", una forma mucho más potente de cargar datos
@@ -106,6 +105,7 @@ const translationsCollection = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/i18n" }),
   schema: z.any(), // JSON plano sin validación estricta
 });
+
 
 // Exportamos las colecciones para que Astro las registre globalmente
 export const collections = {

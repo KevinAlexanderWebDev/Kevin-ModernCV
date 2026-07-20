@@ -42,16 +42,8 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
 
-    <!-- Inyectamos View Transitions Router (En Astro 5+ ahora es ClientRouter) -->
     <ClientRouter />
 
-    <!-- 
-      DARK MODE INIT SCRIPT
-      Lo colocamos Inline y Bloqueante en el <head> a propósito.
-      ¿Por qué? Para evitar el "FOUC" (Flash of Unstyled Content).
-      Si este script estuviera al final del body o externo, el usuario vería la web blanca 1 segundo 
-      antes de que el JS cambie las variables CSS.
-    -->
     <script is:inline>
       const initTheme = () => {
         const storedTheme =
@@ -69,26 +61,20 @@ const {
 
       initTheme();
 
-      // Es vital re-correrlo cuando Astro hace una View Transition hacia otra página,
-      // puesto que el document a veces se reconstruye y se pierde la clase sin esto:
       document.addEventListener("astro:after-swap", initTheme);
     </script>
   </head>
 
   <body>
-    <!-- <Navbar /> se inyectará después -->
     <main class="main-content">
       <slot />
-      <!-- Aquí es donde se "renderizarán" tus páginas (index.astro, etc) -->
     </main>
-    <!-- <Footer /> se inyectará después -->
 
     <style>
       .main-content {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        /* Padding top para compensar un navbar fijo (fixed/sticky) que crearemos después */
         padding-top: 80px;
       }
     </style>

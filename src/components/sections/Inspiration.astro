@@ -1,0 +1,129 @@
+---
+interface InspirationItem {
+    title: string, 
+    text: string, 
+    photo: string,
+}
+interface Props {
+    t: any;
+}
+
+const { t } = Astro.props;
+const itemsObj = t.inspiration?.items;
+const inspirations: InspirationItem[] = itemsObj ? Object.values(itemsObj) : [
+    {
+        title: 'Mi familia',
+        text: 'La razón por la cual hoy estoy aquí y la que me motivó a perseguir mis sueños es mi familia. Son la fuente de mi inspiración y mi motor. Cada esfuerzo y logro en mi carrera lo dedico a ellos, porque me enseñaron que con perseverancia y corazón todo es posible.',
+        photo: '/assets/images/inspiration/myfamily.webp',
+    },
+    {
+        title: 'Mi Amigo Fiel',
+        text: 'No solo una mascota, no solo un amigo, mi mejor amigo y mi más grande apoyo emocional que, con su cariño incondicional me enseño que la felicidad viene de las cosas más pequeñas.',
+        photo: '/assets/images/inspiration/mybrother.webp',
+    },
+];
+---
+
+<section id="inspiration" class="inspiration-section container"> 
+    <h2 class="section-title">{t.inspiration?.title ?? 'Inspiración y Motivaciones'}</h2>
+    <p class="section-subtitle">{t.inspiration?.subtitle ?? 'Mi fuente de inspiración para seguir creciendo'}</p>
+    
+    <div class="inspiration-grid">
+        {inspirations.map((item) => (
+            <article class="inspiration-card">
+                <div class="inspiration-img-wrapper">
+                    <img src={item.photo} alt={item.title} width={400} height={300} class="inspiration-img" loading="lazy" decoding="async" />
+                </div>
+                <div class="inspiration-content">
+                    <h3 class="inspiration-title">{item.title}</h3>
+                    <p class="inspiration-text">{item.text}</p>
+                </div>
+            </article>
+        ))}
+    </div>
+</section>
+
+<style>
+  .inspiration-section {
+        padding: 6rem 1.5rem;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 0.75rem;
+        color: var(--text-primary);
+    }
+
+    .section-subtitle {
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        margin-bottom: 4rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .inspiration-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 2.5rem;
+    }
+
+    .inspiration-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .inspiration-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .inspiration-img-wrapper {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        overflow: hidden;
+        background: var(--bg-tertiary);
+    }
+
+    .inspiration-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .inspiration-card:hover .inspiration-img {
+        transform: scale(1.05);
+    }
+
+    .inspiration-content {
+        padding: 1.5rem;
+    }
+
+    .inspiration-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+    }
+
+    .inspiration-text {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+        .inspiration-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        }
+    }
+</style>

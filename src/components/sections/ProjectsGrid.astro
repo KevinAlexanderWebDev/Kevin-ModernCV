@@ -1,5 +1,6 @@
 ---
 import ProjectCard from '../ui/ProjectCard.astro';
+import IconRocket from '../ui/icons/IconRocket.astro';
 
 interface Props {
   projects: any[];
@@ -10,10 +11,10 @@ const { projects, t } = Astro.props;
 
 // Extract translation safely
 const translations = t ?? {};
-const baseTitle = t?.title ?? 'Trabajos Recientes';
+const baseTitle = t?.proyectos?.title ?? 'Trabajos Recientes';
 const words = baseTitle.split(' ');
 const lastWord = words.pop();
-const isHighlighted = lastWord?.toLowerCase().includes('recientes');
+const isHighlighted = lastWord?.toLowerCase() === 'recientes' || lastWord?.toLowerCase() === 'projects';
 const highlightClass = isHighlighted ? 'highlight' : '';
 const displayWords = words;
 ---
@@ -21,6 +22,7 @@ const displayWords = words;
 <section id="projects" class="projects-section container">
   <div class="section-header">
     <h2 class="section-title">
+      <IconRocket size={28} class="icon-inline" />
       {displayWords.length > 0 && (
         <span>
           {displayWords.join(' ')}
@@ -42,7 +44,7 @@ const displayWords = words;
         </>
       )}
     </h2>
-    <p class="section-subtitle">Una selección de proyectos escalables construidos con tecnologías modernas.</p>
+    <p class="section-subtitle">{t?.proyectos?.subtitle ?? 'Una selección de proyectos escalables construidos con tecnologías modernas.'}</p>
   </div>
 
   <div class="projects-grid">
@@ -68,7 +70,7 @@ const displayWords = words;
   }
   
   .highlight {
-    color: var(--accent-blue);
+    color: var(--accent-primary);
   }
 
   .section-subtitle {

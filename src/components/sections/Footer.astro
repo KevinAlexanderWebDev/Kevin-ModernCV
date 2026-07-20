@@ -19,14 +19,15 @@ const formMessage = translations.form?.message ?? 'Mensaje';
 const footerCopy = translations.footer?.copy ?? `© ${new Date().getFullYear()} ${p.name ?? 'Kevin Alexander Meza Morales'}`;
 
 const formAction = `https://formsubmit.co/${p.email ?? 'mezamoraleskevinalexander@gmail.com'}`;
-const thankYouUrl = `/${currentLang}/gracias/`;
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const thankYouUrl = `${basePath}/${currentLang}/gracias/`;
 ---
 
 <footer id="contact" class="footer">
   <div class="container footer-content">
     <div class="contact-card">
       <h2>{contactoTitle}</h2>
-      <p>Siempre estoy abierto a discutir trabajo de desarrollo web o oportunidades de asociación.</p>
+      <p>{translations.contacto?.text ?? 'Siempre estoy abierto a discutir trabajo de desarrollo web o oportunidades de asociación.'}</p>
       
       <form action={formAction} method="POST" class="form-contacto" novalidate>
         <input type="hidden" name="_next" value={thankYouUrl}>
@@ -117,7 +118,7 @@ const thankYouUrl = `/${currentLang}/gracias/`;
   }
   
   .highlight {
-    color: var(--accent-blue);
+    color: var(--accent-primary);
   }
 
   .contact-card p {
@@ -142,18 +143,18 @@ const thankYouUrl = `/${currentLang}/gracias/`;
     overflow: hidden;
     z-index: 1;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.274);
-    background: linear-gradient(135deg, var(--accent-blue) 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, var(--accent-primary) 0%, #7c3aed 100%);
     color: white;
     box-shadow: 
-    0 4px 20px rgba(37, 99, 235, 0.35),
-    0 0 0 0 rgba(37, 99, 235, 0.4);
+    0 4px 20px rgba(124, 58, 237, 0.35),
+    0 0 0 0 rgba(124, 58, 237, 0.4);
   }
 
   .contact-btn::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #7c3aed 0%, var(--accent-blue) 100%);
+    background: linear-gradient(135deg, #7c3aed 0%, var(--accent-primary) 100%);
     opacity: 0;
     transition: opacity 0.4s ease;
     z-index: -1;
@@ -181,8 +182,8 @@ const thankYouUrl = `/${currentLang}/gracias/`;
   .contact:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 
-    0 12px 35px rgba(37, 99, 235, 0.45),
-    0 0 0 0 rgba(37, 99, 235, 0.6)
+    0 12px 35px rgba(124, 58, 237, 0.45),
+    0 0 0 0 rgba(124, 58, 237, 0.6)
   }
 
   .contact:hover::before {
@@ -198,7 +199,7 @@ const thankYouUrl = `/${currentLang}/gracias/`;
   }
 
   .contact-btn:focus-visible {
-    outline: 3px solid var(--accent-blue);
+    outline: 3px solid var(--accent-primary);
     outline-offset: 4px;
   }
 
@@ -210,20 +211,20 @@ const thankYouUrl = `/${currentLang}/gracias/`;
   }
 
   :global(html.dark) .contact-btn {
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
   box-shadow: 
-    0 4px 20px rgba(59, 130, 246, 0.4),
-    0 0 0 0 rgba(59, 130, 246, 0.5);
+    0 4px 20px rgba(139, 92, 246, 0.4),
+    0 0 0 0 rgba(139, 92, 246, 0.5);
   }
 
   :global(html.dark) .contact-btn::before {
-    background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
   }
 
   :global(html.dark) .contact-btn:hover {
     box-shadow: 
-      0 12px 35px rgba(59, 130, 246, 0.55),
-      0 0 0 0 rgba(59, 130, 246, 0.7);
+      0 12px 35px rgba(139, 92, 246, 0.55),
+      0 0 0 0 rgba(139, 92, 246, 0.7);
   }
 
   /* Reducir movimiento */
@@ -292,7 +293,7 @@ const thankYouUrl = `/${currentLang}/gracias/`;
   }
 
   .social-links a:hover {
-    color: var(--accent-blue);
+    color: var(--accent-primary);
     transform: translateY(-3px);
   }
 
@@ -303,7 +304,7 @@ const thankYouUrl = `/${currentLang}/gracias/`;
   }
   
   .highlight-link {
-    color: var(--accent-blue);
+    color: var(--accent-primary);
     text-decoration: underline;
   }
 </style>

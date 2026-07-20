@@ -6,20 +6,27 @@ interface Props {
   t?: any;
 }
 
-const { certificates } = Astro.props;
+const { certificates, t } = Astro.props;
 
 // Extract certificate data with public paths
-const certsData = certificates.map(cert => ({
-  id: cert.id,
-  title: cert.data?.title ?? 'Certificado',
-  issuer: cert.data?.issuer ?? '',
-  issueDate: cert.data?.issueDate ?? '',
-  thumbnailPath: cert.data?.thumbnailObj,
-  imagePath: cert.data?.imageObj,
-  url: cert.data?.url,
-}));
+const certsData = certificates.map(cert => {
+  const cd = cert.data ?? {};
+  const titleKey = cd.titleKey;
+  const issuerKey = cd.issuerKey;
+  return {
+    id: cert.id,
+    title: titleKey ? (t[titleKey] ?? cd.title ?? 'Certificado') : (cd.title ?? 'Certificado'),
+    issuer: issuerKey ? (t[issuerKey] ?? cd.issuer ?? '') : (cd.issuer ?? ''),
+    issueDate: cd.issueDate ?? '',
+    thumbnailPath: cd.thumbnailObj,
+    imagePath: cd.imageObj,
+    url: cd.url,
+  };
+});
 
-const certsTitle = 'Certificaciones';
+const currentLang = Astro.url.pathname.split('/')[1] || 'es';
+const dateLocale = currentLang === 'en' ? 'en-US' : 'es-ES';
+const certsTitle = t?.nav?.ct ?? 'Certificaciones';
 ---
 
 <section id="certificates" class="certs-section container">
@@ -45,7 +52,7 @@ const certsTitle = 'Certificaciones';
         <div class="cert-info">
           <h4>{cert.title}</h4>
           <p class="issuer">{cert.issuer}</p>
-          <span class="date">{cert.issueDate ? new Date(cert.issueDate).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' }) : ''}</span>
+          <span class="date">{cert.issueDate ? new Date(cert.issueDate).toLocaleDateString(dateLocale, { year: 'numeric', month: 'long' }) : ''}</span>
         </div>
       </article>
     ))}
@@ -73,7 +80,7 @@ const certsTitle = 'Certificaciones';
   }
   
   .highlight {
-    color: var(--accent-blue);
+    color: var(--accent-primary);
   }
 
   .certs-grid {
@@ -95,7 +102,7 @@ const certsTitle = 'Certificaciones';
 
   .cert-card:hover {
     transform: translateX(5px);
-    border-color: var(--accent-blue);
+    border-color: var(--accent-primary);
     background: var(--bg-primary);
   }
 
@@ -134,7 +141,7 @@ const certsTitle = 'Certificaciones';
   }
 </style>
 
-<script define:vars={{ certsData }}>
+<script define:vars={{ certsData, dateLocale }}>
   const modal = document.getElementById('cert-modal');
   const modalBody = modal?.querySelector('.modal-body');
 
@@ -149,7 +156,7 @@ const certsTitle = 'Certificaciones';
       <div class="modal-info">
         <h3 class="modal-title">${data.title}</h3>
         <p class="modal-issuer">${data.issuer}</p>
-        <p class="modal-date">${data.issueDate ? new Date(data.issueDate).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}</p>
+        <p class="modal-date">${data.issueDate ? new Date(data.issueDate).toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' }) : ''}</p>
         ${data.url ? `<a href="${data.url}" target="_blank" rel="noopener" class="modal-link">Ver Certificado</a>` : ''}
       </div>
     `;

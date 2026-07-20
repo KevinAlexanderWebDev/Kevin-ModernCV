@@ -1,4 +1,7 @@
 ---
+import IconTools from '../ui/icons/IconTools.astro';
+import IconLightbulb from '../ui/icons/IconLightbulb.astro';
+
 interface Props {
   personal: any;
   skills: any[];
@@ -16,15 +19,17 @@ const skillsByCategory = {
   <div class="about-grid">
     <div class="about-text">
       <h2 class="section-title">{t.about?.title || 'Sobre'}
-        <span class="highlight">{t.about?.strengths?.replace('💡', '').replace('Fortalcezas y Habilidades', 'Mí') || 'Mí'}</span>
+        <IconLightbulb size={24} class="icon-inline" /> <span class="highlight">{t.about?.mi || 'Mí'}</span>
       </h2>
-      {personal.bio.map((paragraph:string) => (
-        <p>{paragraph}</p>
-      ))}
+      {personal.bio.map((paragraph:string, i:number) => {
+        const bioKey = personal.bioKeys?.[i];
+        const text = bioKey ? (t[bioKey] ?? paragraph) : paragraph;
+        return <p>{text}</p>;
+      })}
     </div>
 
     <div class="skills-wrapper">
-      <h3>{t.about?.skills || '🛠️ Conocimientos'}</h3>
+      <h3><IconTools size={20} class="icon-inline" /> {t.about?.skills || 'Conocimientos'}</h3>
       {Object.entries(skillsByCategory).map(([category, items]) => (
         <div class="skill-category">
           <h4 class="category-title">
@@ -62,7 +67,7 @@ const skillsByCategory = {
   }
   
   .highlight {
-    color: var(--accent-blue);
+    color: var(--accent-primary);
   }
 
   .about-text p {
@@ -96,9 +101,9 @@ const skillsByCategory = {
   }
 
   .skill-chip:hover {
-    background: var(--accent-blue);
+    background: var(--accent-primary);
     color: #fff;
-    border-color: var(--accent-blue);
+    border-color: var(--accent-primary);
     transform: translateY(-2px);
   }
 

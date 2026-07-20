@@ -1,11 +1,11 @@
 {
   "title": "Ecosistema Industrial - Maquinaria CTM",
   "description": "Sistema de integración industrial FullStack diseñado para la comunicación nativa de bajo nivel con maquinaria pesada CTM.",
-  "imageObj": "/assets/images/projects/yellow-flower-day/desktop-1.webp",
-  "hoverImageObj": "/assets/images/projects/yellow-flower-day/desktop-2.webp",
+  "imageObj": "/assets/images/projects/ctm-autocobro/ctmmachine-01.webp",
+  "hoverImageObj": "/assets/images/projects/ctm-autocobro/ctmmachine-02.webp",
   "mobileImages": [
-    "/assets/images/projects/yellow-flower-day/mobile-1.webp",
-    "/assets/images/projects/yellow-flower-day/mobile-2.webp"
+    "/assets/images/projects/ctm-autocobro/ctmmachine-03.webp",
+    "/assets/images/projects/ctm-autocobro/ctmmachine-04.webp"
   ],
   "tags": ["C#", "Windows Forms", "WPF", "MAUI", "XAML", "C++ Legacy Libraries", ".Net 4.8", ".Net 8.0+", "TCP Comunication", "Json Contracts", "Windows Services", "Marshaling"],
   "repoUrl": "https://github.com/KevinAlexanderWebDev/Yellow-Flower-Day",
