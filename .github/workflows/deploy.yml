@@ -24,17 +24,17 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+        node-version: 22 # Forzamos Node 22 (LTS) o puedes usar '24'
+        cache: 'npm' 
       
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:
             path: ${{ env.BUILD_PATH }}
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22 # Forzamos Node 22 (LTS) o puedes usar '24'
-          cache: 'npm' 
 
   deploy:
     environment:
