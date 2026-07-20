@@ -37,8 +37,19 @@ const certsTitle = t?.nav?.ct ?? 'Certificaciones';
   </div>
 
   <div class="certs-grid">
-    {certsData.map(cert => (
-      <article class="cert-card" data-cert-id={cert.id}>
+    {certsData.map(cert => {
+      const certJson = JSON.stringify({
+        id: cert.id,
+        title: cert.title,
+        issuer: cert.issuer,
+        issueDate: cert.issueDate,
+        imagePath: cert.imagePath,
+        thumbnailPath: cert.thumbnailPath,
+        url: cert.url,
+        locale: dateLocale,
+      });
+      return (
+      <article class="cert-card" data-cert-id={cert.id} data-cert={certJson}>
         {cert.thumbnailPath && (
           <div class="cert-thumb-wrapper">
             <img
@@ -57,7 +68,8 @@ const certsTitle = t?.nav?.ct ?? 'Certificaciones';
           <span class="date">{cert.issueDate ? new Date(cert.issueDate).toLocaleDateString(dateLocale, { year: 'numeric', month: 'long' }) : ''}</span>
         </div>
       </article>
-    ))}
+      );
+    })}
   </div>
 </section>
 
@@ -143,52 +155,16 @@ const certsTitle = t?.nav?.ct ?? 'Certificaciones';
   }
 </style>
 
-<script define:vars={{ certsData, dateLocale }}>
-  const BASE_URL = import.meta.env.BASE_URL.replace(/\/$/, '');
-  const img = (p) => p && p.startsWith('/') ? BASE_URL + p : p;
-
-  const modal = document.getElementById('cert-modal');
-  const modalBody = modal?.querySelector('.modal-body');
-
-  const certMap = Object.fromEntries(certsData.map(c => [c.id, c]));
-
-  function openModal(certId) {
-    const data = certMap[certId];
-    if (!data || !modal || !modalBody) return;
-
-    modalBody.innerHTML = `
-      ${data.imagePath ? `<img src="${img(data.imagePath)}" alt="${data.title}" class="modal-image" loading="eager">` : ''}
-      <div class="modal-info">
-        <h3 class="modal-title">${data.title}</h3>
-        <p class="modal-issuer">${data.issuer}</p>
-        <p class="modal-date">${data.issueDate ? new Date(data.issueDate).toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' }) : ''}</p>
-        ${data.url ? `<a href="${data.url}" target="_blank" rel="noopener" class="modal-link">Ver Certificado</a>` : ''}
-      </div>
-    `;
-
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    modal?.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  document.addEventListener('click', (e) => {
-    const card = e.target.closest('.cert-card[data-cert-id]');
-    if (card) openModal(card.getAttribute('data-cert-id'));
-  });
-
-  if (modal) {
-    modal.querySelectorAll('[data-close]').forEach(btn => {
-      btn.addEventListener('click', closeModal);
-    });
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal?.classList.contains('open')) {
-      closeModal();
-    }
+<script>
+  document.addEventListener('click', (e: Event) => {
+    const target = e.target as Element | null;
+    const card = target?.closest('.cert-card[data-cert]');
+    if (!card) return;
+    try {
+      const raw = card.getAttribute('data-cert');
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      document.dispatchEvent(new CustomEvent('open-cert-modal', { detail: data }));
+    } catch {}
   });
 </script>

@@ -1,93 +1,245 @@
----
-interface Props {
-  certificates: Array<{
-    id: string;
-    title: string;
-    issuer: string;
-    issueDate: string;
-    thumbnailPath: string;
-    imagePath: string;
-    url: string;
-  }>;
-}
-
-const { certificates } = Astro.props;
----
-
-<div id="cert-modal" class="modal-overlay">
-  <div class="modal-container">
-    <button class="modal-close" data-close aria-label="Cerrar">&times;</button>
-    <div class="modal-body"></div>
+<div id="cert-modal" class="cert-modal-overlay">
+  <div class="cert-modal" role="dialog" aria-modal="true" aria-label="Detalle del certificado">
+    <button class="cert-modal-close" data-close aria-label="Cerrar">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="cert-modal-image-wrap">
+      <img id="cert-modal-img" class="cert-modal-image" alt="">
+      <div class="cert-modal-badge" id="cert-modal-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span>Certificado</span>
+      </div>
+    </div>
+    <div class="cert-modal-body">
+      <h3 id="cert-modal-title" class="cert-modal-title"></h3>
+      <p id="cert-modal-issuer" class="cert-modal-issuer"></p>
+      <p id="cert-modal-date" class="cert-modal-date"></p>
+      <a id="cert-modal-link" class="cert-modal-link" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span>Ver certificado original</span>
+      </a>
+    </div>
   </div>
 </div>
 
 <style>
-  .modal-overlay {
+  .cert-modal-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     z-index: 1000;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    padding: 1.5rem;
+    animation: cert-fade-in 0.2s ease;
   }
-  .modal-overlay.open {
+
+  .cert-modal-overlay.open {
     display: flex;
   }
-  .modal-container {
-    background: var(--bg-primary);
-    border-radius: var(--radius-lg);
-    max-width: 800px;
+
+  @keyframes cert-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .cert-modal {
+    background: var(--bg-primary, #fff);
+    border-radius: 20px;
+    max-width: 600px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    animation: cert-scale-in 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
-  .modal-close {
+
+  @keyframes cert-scale-in {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .cert-modal-close {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    color: white;
     border: none;
-    font-size: 2rem;
-    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     z-index: 10;
+    transition: background 0.2s, transform 0.2s;
   }
-  .modal-body {
-    padding: 2rem;
+
+  .cert-modal-close:hover {
+    background: rgba(0,0,0,0.7);
+    transform: scale(1.1);
   }
-  .modal-image {
+
+  .cert-modal-image-wrap {
+    position: relative;
     width: 100%;
-    height: auto;
-    border-radius: var(--radius-md);
-    margin-bottom: 1.5rem;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: var(--bg-tertiary, #f1f5f9);
+    border-radius: 20px 20px 0 0;
   }
-  .modal-info {
+
+  .cert-modal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+    padding: 1rem;
+  }
+
+  .cert-modal:hover .cert-modal-image {
+    transform: scale(1.02);
+  }
+
+  .cert-modal-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, var(--accent-primary, #7c3aed), #a78bfa);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 10px rgba(124,58,237,0.3);
+  }
+
+  .cert-modal-body {
+    padding: 1.75rem 2rem 2rem;
     text-align: center;
   }
-  .modal-title {
-    font-size: 1.5rem;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
+
+  .cert-modal-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-primary, #0f172a);
+    margin-bottom: 0.35rem;
+    line-height: 1.3;
   }
-  .modal-issuer {
-    color: var(--text-secondary);
+
+  .cert-modal-issuer {
+    font-size: 0.95rem;
+    color: var(--text-secondary, #475569);
     margin-bottom: 0.25rem;
   }
-  .modal-date {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
+
+  .cert-modal-date {
+    font-size: 0.85rem;
+    color: var(--text-muted, #94a3b8);
+    margin-bottom: 1.5rem;
   }
-  .modal-link {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: var(--accent-primary);
+
+  .cert-modal-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, var(--accent-primary, #7c3aed), #a78bfa);
     color: white;
     text-decoration: none;
-    border-radius: var(--radius-sm);
     font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 3px 12px rgba(124,58,237,0.3);
+  }
+
+  .cert-modal-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124,58,237,0.4);
+  }
+
+  @media (max-width: 480px) {
+    .cert-modal-body {
+      padding: 1.25rem 1.25rem 1.5rem;
+    }
+    .cert-modal-title {
+      font-size: 1.15rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cert-modal,
+    .cert-modal-overlay {
+      animation: none;
+    }
   }
 </style>
+
+<script>
+  const overlay = document.getElementById('cert-modal') as HTMLElement | null;
+  const imgEl = document.getElementById('cert-modal-img') as HTMLImageElement | null;
+  const titleEl = document.getElementById('cert-modal-title');
+  const issuerEl = document.getElementById('cert-modal-issuer');
+  const dateEl = document.getElementById('cert-modal-date');
+  const linkEl = document.getElementById('cert-modal-link') as HTMLAnchorElement | null;
+  const BASE_URL = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+  function img(path: string): string {
+    if (!path || path.startsWith('http') || path.startsWith('data:')) return path || '';
+    return path.startsWith('/') ? BASE_URL + path : BASE_URL + '/' + path;
+  }
+
+  function open(data: Record<string, any>): void {
+    if (!overlay || !data || !imgEl || !titleEl || !issuerEl || !dateEl || !linkEl) return;
+    imgEl.src = img(data.imagePath || data.thumbnailPath);
+    imgEl.alt = data.title || 'Certificado';
+    titleEl.textContent = data.title || '';
+    issuerEl.textContent = data.issuer || '';
+    dateEl.textContent = data.issueDate
+      ? new Date(data.issueDate).toLocaleDateString(data.locale || 'es-ES', { year: 'numeric', month: 'long', day: 'numeric' })
+      : '';
+    if (data.url) {
+      linkEl.href = data.url;
+      linkEl.style.display = 'inline-flex';
+    } else {
+      linkEl.style.display = 'none';
+    }
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close(): void {
+    if (!overlay) return;
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('open-cert-modal', (e: Event) => {
+    open((e as CustomEvent).detail);
+  });
+
+  document.addEventListener('click', (e: Event) => {
+    const target = e.target as Element | null;
+    if (target?.closest('[data-close]')) close();
+  });
+
+  overlay?.addEventListener('click', (e: Event) => {
+    if (e.target === overlay) close();
+  });
+
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && overlay?.classList.contains('open')) close();
+  });
+</script>

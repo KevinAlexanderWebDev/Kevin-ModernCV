@@ -4,7 +4,7 @@
   "imageObj": "/assets/images/projects/nutfuel-web/nutfuel-web-01.webp",
   "hoverImageObj": "/assets/images/projects/nutfuel-web/nutfuel-web-02.webp",
   "mobileImages": [
-    "/assets/images/projects/nuftuel-web/mobile-01.webp",
+    "/assets/images/projects/nutfuel-web/mobile-01.webp",
     "/assets/images/projects/nutfuel-web/mobile-02.webp"
   ],
   "tags": ["#C", "Blazor", "Asp.NetCore", "MVC", "Api RestFul", "SQL Server"],
