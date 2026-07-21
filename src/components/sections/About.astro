@@ -28,7 +28,6 @@ const skillsByCategory = {
         return <p>{text}</p>;
       })}
     </div>
-
     <div class="skills-wrapper">
       <h3><IconTools size={20} class="icon-inline" /> {t.about?.skills || 'Conocimientos'}</h3>
       {Object.entries(skillsByCategory).map(([category, items]) => (

@@ -20,7 +20,8 @@ const footerCopy = translations.footer?.copy ?? `© ${new Date().getFullYear()} 
 
 const formAction = `https://formsubmit.co/${p.email ?? 'mezamoraleskevinalexander@gmail.com'}`;
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
-const thankYouUrl = `${basePath}/${currentLang}/gracias/`;
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? `https://kevinalexanderwebdev.github.io`;
+const thankYouUrl = `${siteUrl}${basePath}/${currentLang}/gracias/`;
 ---
 
 <footer id="contact" class="footer">
