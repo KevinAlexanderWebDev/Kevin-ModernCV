@@ -1,0 +1,18 @@
+{
+  "title": "For-Special-Person",
+  "description": "Como podrán observar soy una persona muy afectiva y sensible, siempre me ha gustado ser detallista y relacionar al amor con lo basto e inmenso que es el universo. Este proyecto hecho en react fue realizado para una persona especial en mi vida que, a base de código y ciencia, le demuestro mi inmenso amor.",
+  "imageObj": "/assets/images/projects/for-special-person/sparks-01.webp",
+  "hoverImageObj": "/assets/images/projects/for-special-person/sparks-02.webp",
+  "mobileImages": [
+    "/assets/images/projects/for-special-person/sparks-mobile01.webp",
+    "/assets/images/projects/for-special-person/sparks-mobile02.webp"
+  ],
+  "tags": ["React", "JS", "HTML", "CSS", "GitHub Actions", "Vite"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/for-special-person/",
+  "liveUrl": "https://kevinalexanderwebdev.github.io/for-special-person/",
+  "featured": false,
+  "status": "live",
+  "order": 21,
+  "titleKey": "proyectos.17",
+  "descriptionKey": "proyectosspan.17"
+}

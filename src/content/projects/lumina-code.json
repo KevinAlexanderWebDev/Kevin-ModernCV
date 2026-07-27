@@ -1,0 +1,18 @@
+{
+  "title": "LuminaCode",
+  "description": "Desarrollo de una plataforma interactiva para aprendizaje en lenguajes de programación tematizada en el espacio y sus alrededores, sin importar tu nivel, condiciones ni posibilidades. Lumina Code es para todo mundo e inclusive, para fuera de este",
+  "imageObj": "/assets/images/projects/lumina-code/lumina-code-01.webp",
+  "hoverImageObj": "/assets/images/projects/lumina-code/lumina-code-02.webp",
+  "mobileImages": [
+    "/assets/images/projects/lumina-code/lumina-code-mobile01.webp",
+    "/assets/images/projects/lumina-code/lumina-code-mobile02.webp"
+  ],
+  "tags": ["HTML", "JS", "CSS", "React", "Vite", "Supabase", "PostgreSQL"],
+  "repoUrl": "",
+  "liveUrl": "",
+  "featured": false,
+  "status": "wip",
+  "order": 20,
+  "titleKey": "proyectos.16",
+  "descriptionKey": "proyectosspan.16"
+}

@@ -14,29 +14,15 @@ const {
   description = "Portafolio profesional y técnico de un Ingeniero de Software.",
   lang = "es",
 } = Astro.props;
-
-/**
- * MASTERCLASS: El Layout en Astro
- * A diferencia del HTML/PHP clásico que repetías el `<head>`, nav, footer por archivo,
- * en Astro usas Layouts como envoltoria (Wrapper).
- *
- * ¿Por qué usamos ViewTransitions?
- * Esto inyectará un script pequeñísimo en el browser que intercepta tus <a> enlaces locales.
- * En lugar de recargar la página full-refresh, buscará el nuevo HTML y hará una
- * animación transparente del DOM, ganando fluidez de SPA (Single Page App) sin React/Vue.
- */
 ---
 
 <!doctype html>
 <html lang={lang} class="light">
-  <!-- Clase base, el script inferior lo ajustará rápido -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href={img('/favicon.ico')} />
     <meta name="generator" content={Astro.generator} />
-
-    <!-- SEO Básico -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
