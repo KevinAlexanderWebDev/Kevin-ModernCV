@@ -8,11 +8,11 @@
     "/assets/images/projects/newcv/newcv-mobile-01.webp"
   ],
   "tags": ["Astro", "HTML", "CSS", "Javascript", "Typescript", "Vercel", "Zod", "i18n", "Islands Arquitecture"],
-  "repoUrl": "https://github.com/KevinAlexanderWebDev/Yellow-Flower-Day",
-  "liveUrl": "https://kevinalexanderwebdev.github.io/Yellow-flower-day/",
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/Kevin-ModernCV",
+  "liveUrl": "https://kevinalexanderwebdev.github.io/Kevin-ModernCV/es/",
   "featured": false,
   "status": "live",
-  "order": 7,
-  "titleKey": "proyectos.15",
-  "descriptionKey": "proyectosspan.15"
+  "order": 14,
+  "titleKey": "proyectos.14",
+  "descriptionKey": "proyectosspan.14"
 }

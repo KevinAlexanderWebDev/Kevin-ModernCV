@@ -5,7 +5,7 @@
   <p align="center">
     Un portafolio web escalable, ultra-rápido y con tipado estricto construido en Astro 4.x
     <br />
-    <a href="https://tu-usuario.github.io/short-sphere/"><strong>Ver Demo en vivo »</strong></a>
+    <a href="https://kevinalexanderwebdev.github.io/Kevin-ModernCV/es/"><strong>Ver Demo en vivo »</strong></a>
     <br />
   </p>
 </div>

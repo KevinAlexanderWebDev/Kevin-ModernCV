@@ -1,6 +1,6 @@
 {
-  "title": "Portal - RFID",
-  "description": "Aplicación Microsoft .Net MAUI para control de entradas y salidas de vehículos mediante lectura RFID, conectado a base de datos en SQL Server no API RESTFul.",
+  "title": "Photo Enhance",
+  "description": "Aplicación web para mejorar y comprimir imágenes con IA. Sube una foto, elige un modo de mejora (nitidez, upscaling, denoising, restauración facial) o comprime tu imagen ajustando la calidad, y descarga el resultado al instante.",
   "imageObj": "/assets/images/projects/photo-enhance/photo-enhance01.webp",
   "hoverImageObj": "/assets/images/projects/photo-enhance/photo-enhance02.webp",
   "mobileImages": [
@@ -13,6 +13,6 @@
   "featured": false,
   "status": "live",
   "order": 19,
-  "titleKey": "proyectos.19",
-  "descriptionKey": "proyectosspan.19"
+  "titleKey": "proyectos.18",
+  "descriptionKey": "proyectosspan.18"
 }
