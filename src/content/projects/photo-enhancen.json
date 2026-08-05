@@ -1,0 +1,18 @@
+{
+  "title": "Portal - RFID",
+  "description": "Aplicación Microsoft .Net MAUI para control de entradas y salidas de vehículos mediante lectura RFID, conectado a base de datos en SQL Server no API RESTFul.",
+  "imageObj": "/assets/images/projects/photo-enhance/photo-enhance01.webp",
+  "hoverImageObj": "/assets/images/projects/photo-enhance/photo-enhance02.webp",
+  "mobileImages": [
+    "/assets/images/projects/photo-enhance/photo-enhancemobile01.webp",
+    "/assets/images/projects/photo-enhance/photo-enhancemobile02.webp"
+  ],
+  "tags": ["Blazor WebAssembly (.Net 9)", "SixLabors.ImageSharp 3.1.6", "ONNX Runtime", "Cloudflare Workers", "Render", "GitHub Actions"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/PhotoEnhancer",
+  "liveUrl": "https://photo-enhancer-web.alexander-kamm45.workers.dev/",
+  "featured": false,
+  "status": "live",
+  "order": 19,
+  "titleKey": "proyectos.19",
+  "descriptionKey": "proyectosspan.19"
+}

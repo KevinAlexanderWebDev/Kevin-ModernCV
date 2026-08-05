@@ -72,6 +72,8 @@
   "proyectos.activos": "Proyectos en Proceso",
   "proyecto.17" : "For-Special-Person",
   "proyectosspan.17" : "Un proyecto para dedicar, para demostrar mediante código la inmensidad del amor que una persona puede sentir por alguien.",
+  "proyecto.18" : "Photo Enhancer",
+  "proyectosspan.18" : "Aplicación web para mejorar y comprimir imágenes con IA. Sube una foto, elige un modo de mejora (nitidez, upscaling, denoising, restauración facial) o comprime tu imagen ajustando la calidad, y descarga el resultado al instante.",
   "activosspan": "Los siguientes son proyectos que se encuentran actualmente en proceso, realizados en angular y con dos finalidades distintas. Nombres Potenciales: Fuel-by-Peanut y Fit-couch-panel.",
   "see.project": "Ver proyecto",
   "nav.ct": "Certificaciones",
