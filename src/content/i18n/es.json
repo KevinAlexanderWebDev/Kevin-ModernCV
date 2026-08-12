@@ -74,6 +74,8 @@
   "proyectosspan.17" : "Un proyecto para dedicar, para demostrar mediante código la inmensidad del amor que una persona puede sentir por alguien.",
   "proyectos.18" : "Photo Enhancer",
   "proyectosspan.18" : "Aplicación web para mejorar y comprimir imágenes con IA. Sube una foto, elige un modo de mejora (nitidez, upscaling, denoising, restauración facial) o comprime tu imagen ajustando la calidad, y descarga el resultado al instante.",
+  "proyectos.19" : "Atelier Paper · Conversor de Archivos",
+  "proyectosspan.19" : "Con este proyecto puedes convertir tus formatos informáticos (por ahora) en PDF, veloz y eficazmente.",
   "activosspan": "Los siguientes son proyectos que se encuentran actualmente en proceso, realizados en angular y con dos finalidades distintas. Nombres Potenciales: Fuel-by-Peanut y Fit-couch-panel.",
   "see.project": "Ver proyecto",
   "nav.ct": "Certificaciones",

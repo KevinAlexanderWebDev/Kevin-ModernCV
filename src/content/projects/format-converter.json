@@ -1,0 +1,18 @@
+{
+  "title": "Atelier Paper: Format-Converter",
+  "description": "Con este proyecto puedes convertir tus formatos informáticos (por ahora) en PDF, veloz y eficazmente.",
+  "imageObj": "/assets/images/projects/format-converter/format-converter01.webp",
+  "hoverImageObj": "/assets/images/projects/format-converter/format-converter02.webp",
+  "mobileImages": [
+    "/assets/images/projects/format-converter/format-converter-mobile01.webp",
+    "/assets/images/projects/format-converter/format-converter-mobile02.webp"
+  ],
+  "tags": ["C#", "Blazor WebAssembly (.NET 9.0)", "Python", "FastApi", "LibreOffice", "API Rest", "SPA", "Git Hub Actions", "Render"],
+  "repoUrl": "https://github.com/KevinAlexanderWebDev/FormatConverter",
+  "liveUrl": "https://kevinalexanderwebdev.github.io/FormatConverter/",
+  "featured": false,
+  "status": "live",
+  "order": 22,
+  "titleKey": "proyectos.18",
+  "descriptionKey": "proyectosspan.18"
+}
